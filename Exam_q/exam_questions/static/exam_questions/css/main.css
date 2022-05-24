@@ -1,0 +1,28 @@
+body {
+    background: #B4EFFF;
+}
+
+
+header {
+    padding: 40px;
+    text-align: center;
+    background: #B4EFFF;
+    color: white;
+    font-size: 5px;
+}
+
+header h1 {
+    color: black;
+}
+
+main {
+    text-align: center;
+    position: center;
+    margin-left: auto;
+    font-size: 20px;
+}
+
+form {
+    margin-left: auto;
+    position: center;
+}
