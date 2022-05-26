@@ -15,7 +15,9 @@
 
 <div class="container">
 
-    <a href={% static 'upload/tickets.pdf'%}>Ссылка для предварительного просмотра</a>
+    {% with 'upload'|add:'/'|add:filename as image_static %}
+      <a href={% static image_static%}>Ссылка для предварительного просмотра(в формате PDF)</a>
+    {% endwith %}
     </div>
 
 <div class="download_container">
