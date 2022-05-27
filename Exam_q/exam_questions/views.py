@@ -5,10 +5,10 @@ from .forms import UploadFileForm, UploadParamsForm
 import os
 import random
 import mimetypes
-import tex2pix
+#import tex2pix
 from wsgiref.util import FileWrapper
-import sympy
-from pnglatex import pnglatex
+#import sympy
+#from pnglatex import pnglatex
 
 def handle_image(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
@@ -130,7 +130,10 @@ def params(request, filename):
                                                                     3: form.cleaned_data['num_questions_3_in_ticket'],
                                                                     4: form.cleaned_data['num_questions_4_in_ticket'],
                                                                     5: form.cleaned_data['num_questions_5_in_ticket']})
-            return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
+            if form.cleaned_data['output_format'] == 'PDF':
+                return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
+            elif form.cleaned_data['output_format'] == 'TEX':
+                return HttpResponseRedirect(f"/exam_questions/preview/tickets.tex")
     else:
         form = UploadParamsForm()
     return render(request, 'params.html', {'form': form})

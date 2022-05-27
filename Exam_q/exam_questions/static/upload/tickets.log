@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.25)  26 MAY 2022 08:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.21)  26 MAY 2022 08:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -684,25 +684,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 216.
+<4.png, id=5, 65.24374pt x 66.2475pt>
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 216.
 (pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 218.
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 218.
 (pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
-<4.png, id=5, 65.24374pt x 66.2475pt>
 File: 4.png Graphic file (type png)
 <use 4.png>
 Package pdftex.def Info: 4.png  used on input line 220.
@@ -712,1082 +712,92 @@ Underfull \hbox (badness 10000) in paragraph at lines 220--221
 
  []
 
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 222.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
+<5.png, id=6, 65.24374pt x 65.24374pt>
+File: 5.png Graphic file (type png)
+<use 5.png>
+Package pdftex.def Info: 5.png  used on input line 222.
+(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 224.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 224--225
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 226.
+File: 3.png Graphic file (type png)
+<use 3.png>
+Package pdftex.def Info: 3.png  used on input line 226.
 (pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 226--227
 
  []
 
-<5.png, id=6, 65.24374pt x 65.24374pt>
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 228.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
+File: 3.png Graphic file (type png)
+<use 3.png>
+Package pdftex.def Info: 3.png  used on input line 228.
+(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 228--229
 
  []
 
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 230.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 230.
+(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 230--231
 
  []
 
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 232.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 232.
+(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 232--233
 
  []
 
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 234.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 234.
+(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 234--235
 
  []
 
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 238.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 240.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 240--241
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 242.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 242--243
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 244.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 244--245
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 246.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 248.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 250.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 250--251
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 252.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 252--253
-
- []
-
 File: 5.png Graphic file (type png)
 <use 5.png>
-Package pdftex.def Info: 5.png  used on input line 254.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 254
-.
-(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 254
-.
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 256.
+Package pdftex.def Info: 5.png  used on input line 236.
 (pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--257
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 258.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 260.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 260--261
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 264.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 264--265
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 266.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 266--267
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
 [1
 
 {/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./3.png
-> <./4.png> <./5.png>]
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 268.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 268--269
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 270.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 270--271
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 272.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 272--273
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 274.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 276.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 278.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 280.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 282.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 282--283
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 284.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 284--285
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 286.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 286--287
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 290.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 290--291
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 292.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 294.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 294--295
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 296.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 296--297
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 298.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 298--299
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 300.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 302.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 302--303
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 304.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 306.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 308.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 310.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 310--311
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 312.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 316.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 318.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 318--319
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 320.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
-
- []
-
-[2]
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 322.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 324.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 324--325
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 326.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 328.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 330.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 332.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 334.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 336.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 336--337
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 338.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 342.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 342--343
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 344.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 344--345
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 346.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 346--347
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 348.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 350.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 350--351
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 352.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 354.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 356.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 356--357
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 358.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 358--359
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 360.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 360--361
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 362.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 364.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 368.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 370.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 370--371
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 372.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 372--373
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 374.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 374--375
-
- []
-
-[3]
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 376.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 376--377
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 378.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 378--379
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 380.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 382.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 382--383
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 384.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 384--385
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 386.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 388.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 388--389
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 390.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 390--391
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 394.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 394--395
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 396.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 396--397
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 398.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 398--399
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 400.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 400--401
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 402.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 402--403
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 404.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 404--405
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 406.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 406--407
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 408.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 408--409
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 410.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 410--411
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 412.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 412--413
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 414.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 414--415
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 416.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 416--417
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 420.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 420--421
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 422.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 424.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 424--425
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 426.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 426--427
-
- []
-
-[4]
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 428.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 428--429
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 430.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 430--431
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 432.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 432--433
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 434.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 434--435
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 436.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 438.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 438--439
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 440.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 440--441
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 442.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 442--443
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 446.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 446--447
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 448.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 448--449
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 450.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 450--451
-
- []
-
-File: 3.png Graphic file (type png)
-<use 3.png>
-Package pdftex.def Info: 3.png  used on input line 452.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 452--453
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 454.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 454--455
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 456.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 456--457
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 458.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
-
- []
-
-File: 4.png Graphic file (type png)
-<use 4.png>
-Package pdftex.def Info: 4.png  used on input line 460.
-(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--461
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 462.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 462--463
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 464.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 464--465
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 466.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 466--467
-
- []
-
-File: 5.png Graphic file (type png)
-<use 5.png>
-Package pdftex.def Info: 5.png  used on input line 468.
-(pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 468--469
-
- []
-
-[5] (./tickets.aux)
+> <./4.png> <./5.png>] (./tickets.aux)
 Package rerunfilecheck Info: File `tickets.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 12340 strings out of 478268
- 188531 string characters out of 5846347
- 505674 words of memory out of 5000000
- 30382 multiletter control sequences out of 15000+600000
- 472667 words of font info for 39 fonts, out of 8000000 for 9000
+ 12305 strings out of 478268
+ 187980 string characters out of 5846347
+ 496674 words of memory out of 5000000
+ 30364 multiletter control sequences out of 15000+600000
+ 470968 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,5n,63p,476b,341s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,5n,63p,299b,340s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
-}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
-usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
-r/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/l
-ocal/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/loc
-al/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb>
-Output written on tickets.pdf (5 pages, 83497 bytes).
+}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><
+/usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb>
+Output written on tickets.pdf (1 page, 29805 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
+ 27 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
+ 2 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
