@@ -29,7 +29,7 @@ def create_pdf(folder, name, params):
         idx += 1
 
     #creation
-    questions_pool = {3: [], 4: [], 5: []}
+    questions_pool = {3: [], 4: [], 5: [], 6: []}
     for line in all_questions:
         if params['label_3'] in line:
             questions_pool[3].append(line)
@@ -37,6 +37,8 @@ def create_pdf(folder, name, params):
             questions_pool[4].append(line)
         elif params['label_5'] in line:
             questions_pool[5].append(line)
+        elif params['label_problem'] in line:
+            questions_pool[6].append(line)
 
     with open('tickets.tex', 'w') as f:
         for line in title:
@@ -45,7 +47,7 @@ def create_pdf(folder, name, params):
         for ticket in range(params['number_of_tickets']):
             f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket + 1))
             questions = []
-            points = [3, 4, 5]
+            points = [3, 4, 5, 6]
             for point in points:
                 for question in range(params[point]):
                     choice = random.choice(questions_pool[point])
@@ -76,7 +78,7 @@ def create_pages(folder, name, params):
         idx += 1
 
     #creation
-    questions_pool = {3: [], 4: [], 5: []}
+    questions_pool = {3: [], 4: [], 5: [], 6:[]}
     for line in all_questions:
         if params['label_3'] in line:
             questions_pool[3].append(line)
@@ -84,10 +86,12 @@ def create_pages(folder, name, params):
             questions_pool[4].append(line)
         elif params['label_5'] in line:
             questions_pool[5].append(line)
+        elif params['label_problem'] in line:
+            questions_pool[6].append(line)
 
     for ticket in range(params['number_of_tickets']):
         questions = []
-        points = [3, 4, 5]
+        points = [3, 4, 5, 6]
         for point in points:
             for question in range(params[point]):
                 choice = random.choice(questions_pool[point])
@@ -126,6 +130,7 @@ def create_pages(folder, name, params):
         pdf.image(image, x_current, y_current, width/coef, height/coef)
         y_current += height/coef + 5
     pdf.output("tickets.pdf", "F")
+    os.chdir("../../..")
 
 
 
@@ -144,11 +149,12 @@ def params(request, filename):
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
             create_pages("exam_questions/static/upload/", filename, {'label_3': '3.png', 'label_4': '4.png',
-                                                                   'label_5': '5.png',
+                                                                   'label_5': '5.png', 'label_problem': 'z.png',
                                                                    'number_of_tickets': form.cleaned_data['num_tickets'],
                                                                     3: form.cleaned_data['num_questions_3_in_ticket'],
                                                                     4: form.cleaned_data['num_questions_4_in_ticket'],
-                                                                    5: form.cleaned_data['num_questions_5_in_ticket']})
+                                                                    5: form.cleaned_data['num_questions_5_in_ticket'],
+                                                                    6: form.cleaned_data['num_problems_in_ticket']})
             if form.cleaned_data['output_format'] == 'PDF':
                 return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
             elif form.cleaned_data['output_format'] == 'TEX':
@@ -169,6 +175,6 @@ def downloadfile(request, filename):
 
 def preview(request, filename):
     # if request.method == 'POST':
-    return render(request, 'preview.html', {'filename': filename, 'path': '3.png'})
+    return render(request, 'preview.html', {'filename': filename})
 
 
