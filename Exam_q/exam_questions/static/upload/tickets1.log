@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.21)  28 MAY 2022 06:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.21)  28 MAY 2022 09:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -713,33 +713,52 @@ Underfull \hbox (badness 10000) in paragraph at lines 209--210
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
+
+ []
+
 <4.png, id=4, 65.24374pt x 66.2475pt>
 File: 4.png Graphic file (type png)
 <use 4.png>
-Package pdftex.def Info: 4.png  used on input line 211.
+Package pdftex.def Info: 4.png  used on input line 215.
 (pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 211--212
+Underfull \hbox (badness 10000) in paragraph at lines 215--216
+
+ []
+
+File: 4.png Graphic file (type png)
+<use 4.png>
+Package pdftex.def Info: 4.png  used on input line 217.
+(pdftex.def)             Requested size: 10.2964pt x 10.45424pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--218
 
  []
 
 <5.png, id=5, 65.24374pt x 65.24374pt>
 File: 5.png Graphic file (type png)
 <use 5.png>
-Package pdftex.def Info: 5.png  used on input line 213.
+Package pdftex.def Info: 5.png  used on input line 219.
 (pdftex.def)             Requested size: 10.2964pt x 10.29585pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
 
  []
 
 <z.png, id=6, 372.52577pt x 372.52577pt>
 File: z.png Graphic file (type png)
 <use z.png>
-Package pdftex.def Info: z.png  used on input line 215.
+Package pdftex.def Info: z.png  used on input line 221.
 (pdftex.def)             Requested size: 10.2964pt x 10.29422pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
+Underfull \hbox (badness 10000) in paragraph at lines 221--222
 
  []
 
@@ -752,15 +771,15 @@ Package rerunfilecheck Info: File `tickets1.out' has not changed.
 Here is how much of TeX's memory you used:
  12947 strings out of 478268
  200350 string characters out of 5846347
- 499931 words of memory out of 5000000
+ 501931 words of memory out of 5000000
  30973 multiletter control sequences out of 15000+600000
  470968 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,6n,71p,293b,323s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 60i,6n,71p,276b,323s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc
 }</usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><
 /usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb>
-Output written on tickets1.pdf (1 page, 84353 bytes).
+Output written on tickets1.pdf (1 page, 85188 bytes).
 PDF statistics:
  26 PDF objects out of 1000 (max. 8388607)
  15 compressed objects within 1 object stream
