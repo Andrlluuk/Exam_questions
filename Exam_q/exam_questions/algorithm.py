@@ -3,12 +3,16 @@ import random
 from pdf2image import convert_from_path
 from fpdf import FPDF
 from PIL import Image
+import subprocess
+from django.http.response import HttpResponse
 
 
 def create_pages(folder, name, params):
-    os.chdir(folder)
+    # os.chdir(folder)
+    dir_path = os.path.dirname(folder)
+    filename = os.path.join(dir_path, name)
     title = []
-    with open(name, encoding='UTF-8') as f:
+    with open(filename, encoding='UTF-8') as f:
         all_questions = f.readlines()
     idx = 0
     while 'begin{document}' not in all_questions[idx]:
@@ -47,17 +51,19 @@ def create_pages(folder, name, params):
             questions_pool[5].append(line)
         elif params['label_problem'] in line:
             questions_pool[6].append(line)
-
     for ticket in range(params['number_of_tickets']):
         questions = []
         points = [3, 4, 5, 6]
         for point in points:
             for question in range(params[point]):
-                choice = random.choice(questions_pool[point])
+                try:
+                    choice = random.choice(questions_pool[point])
+                except:
+                    return "Error"
                 while choice in questions:
                     choice = random.choice(questions_pool[point])
                 questions.append(choice)
-        with open(f"tickets{ticket + 1}.tex", 'w') as f:
+        with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
             for line in title:
                 f.write('%s\n' % line)
@@ -67,19 +73,22 @@ def create_pages(folder, name, params):
             for line in questions:
                 f.write('%s\n' % line)
             f.write('\\end{document}')
+        os.chdir(folder)
+        # os.system(f"pdflatex tickets{ticket + 1}.tex")
+        subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket + 1}.tex"])
+        os.chdir('../../..')
 
-        os.system(f"pdflatex tickets{ticket + 1}.tex")
 
     for ticket in range(params['number_of_tickets']):
-        file = convert_from_path(f'tickets{ticket + 1}.pdf', 500)
+        file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
         for fil in file:
-            fil.save(f'tickets{ticket + 1}.png', 'PNG')
+            fil.save(os.path.join(dir_path, f'tickets{ticket + 1}.png'), 'PNG')
 
     pdf = FPDF()
     x_current = 20
     y_current = 20
     pdf.add_page()
-    for image in [f'tickets{ticket + 1}.png' for ticket in range(params['number_of_tickets'])]:
+    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(params['number_of_tickets'])]:
         im = Image.open(image)
         width, height = im.size
         coef = width/160
@@ -88,5 +97,5 @@ def create_pages(folder, name, params):
             pdf.add_page()
         pdf.image(image, x_current, y_current, width/coef, height/coef)
         y_current += height/coef + 5
-    pdf.output("tickets.pdf", "F")
-    os.chdir('../../..')
+    pdf.output(os.path.join(dir_path, "tickets.pdf"), "F")
+    # os.chdir('../../..')
