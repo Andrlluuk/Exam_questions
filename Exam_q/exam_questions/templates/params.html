@@ -9,12 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
 </head>
 <body>
-<header>
+<div class="header">
     <h1> Составление билетов по учебной программе</h1>
-</header>
+</div>
 
 <div class="container">
-
       <!--Simple Form-->
 
     <form method="post" class="post-form" enctype="multipart/form-data">
@@ -25,15 +24,13 @@
 
     </div>
 
-<footer>
-  <div class="column1">
-    <img src="{% static 'exam_questions/img/mmf.png'%}" width="300" height="300">
+ <div class="picture1">
+    <img src="{% static 'exam_questions/img/mmf.png'%}" width="200" height="200">
   </div>
-  <div class="column2">
+
+<div class="picture2">
     <img src="{% static 'exam_questions/img/nsu.png'%}" width="500" height="150">
   </div>
-</div>
-</footer>
 </body>
 
 </html>

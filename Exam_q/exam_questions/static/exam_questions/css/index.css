@@ -10,14 +10,6 @@
     font-weight: normal;
 }
 
-.container {
-    text-align: center;
-    position: center;
-    margin-left: auto;
-    font-size: 20px;
-    font-family: 'Acrom';
-    font-weight: bold;
-}
 
 body {
     position: center;
@@ -26,8 +18,7 @@ body {
     font-family: 'Acrom';
 }
 
-header{
-    color: black;
+.header1{
     text-align: center;
     font-family: 'Acrom';
 }

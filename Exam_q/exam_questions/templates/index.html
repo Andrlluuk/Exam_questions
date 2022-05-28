@@ -1,12 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'exam_questions/css/index.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
 </head>
 <body>
-        <h1>Инструкция по пользованию сайтом</h1>
-        <h2>Правила составления документа:</h2>
+<div class="header1">
+    <h1>Инструкция по пользованию сайтом</h1>
+</div>
+<div class="header2">
+    <h2>Правила составления документа:</h2>
+</div>
         <p>Сайт работает с двумя форматами входных данных: .tex и .doc (настоятельно рекомендуем использовать tex)<br>
             В вашем файле каждый вопрос (или задача) может иметь сложность.<br>
             На данный момент алгоритм принимает вопросы "на 3", "на 4" и "на 5", так же есть возможность добавлять задачи.<br>
@@ -32,5 +40,14 @@
         <p>После ввода всех параметров, вы сможете посмотреть на получившийся результат, и, в случае несовпадения результата с вашими ожиданиями, вернуться назад и поменять параметры</p>
         <a href="load">
         <input type="button" value="Продолжить" /></a>
+
+ <div class="picture1">
+    <img src="{% static 'exam_questions/img/mmf.png'%}" width="200" height="200">
+  </div>
+
+<div class="picture2">
+    <img src="{% static 'exam_questions/img/nsu.png'%}" width="500" height="150">
+  </div>
 </body>
+
 </html>
