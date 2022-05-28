@@ -1,0 +1,477 @@
+\documentclass[preview]{standalone}
+%\usepackage[cp1251]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{chngcntr,color}
+%\usepackage[hyper]{amsbib}
+\usepackage{ulem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[mathscr]{euscript}
+\usepackage{enumitem}
+\usepackage{cite}
+\usepackage{bbm} % We need this for pretty Indicator \mathbbm{1}.
+\usepackage[left=25mm, top=20mm, right=10mm, bottom=10mm, nohead]{geometry}
+\usepackage{graphicx} % для картинок
+
+
+\renewcommand\theequation{\arabic{section}.\arabic{equation}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\p}[1]{{\mathbf{P}} \left( \, #1 \, \right) }
+\newcommand{\px}[1]{{\mathbf{P}_x}\!\left( \, #1 \, \right) }
+\newcommand{\e}{{\mathbf{E}} }
+\newcommand{\lk}{«}
+\newcommand{\pk}{»}
+\newcommand{\lm}{(\lambda,\mu)}
+\newcommand{\sk}[1]{\left[ #1 \right]}
+\newcommand{\skk}[1]{\left\{ #1 \right\}}
+\newcommand{\lef}{\left(}
+\newcommand{\rig}{\right)}
+\newcommand{\skl}[1]{\left\langle #1 \right\rangle}
+
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+ \def\lms{\mathop{\overline{\lim}}\limits}
+
+\def\lmi{\mathop{\underline{\lim}}\limits}
+
+\def\v{\varepsilon}
+
+\def\d{\delta}
+\def\a{\alpha}
+\def\b{\beta}
+\def\g{\gamma}
+\def\l{\lambda}
+\def\m{\mu}
+\def\({\left(}
+\def\){\right)}
+
+\def\({\left(}
+\def\){\right)}
+
+\def\[{\left[}
+\def\]{\right]}
+
+
+\def\|{\left|}
+\def\|{\right|}
+
+
+
+\def\SL{\left\{}
+\def\SP{\right\}}
+
+\def\dd{{\boldsymbol{\delta}}}
+\def\aa{{\boldsymbol{\alpha}}}
+\def\bb{{\boldsymbol{\beta}}}
+\def\gg{{\boldsymbol{\gamma}}}
+\def\ll{{\boldsymbol{lambda}}}
+\def\mm{{\boldsymbol{\mu}}}
+\def\0{{\boldsymbol{0}}}
+
+
+\def\n{\nu}
+\def\t{\tau}
+\def\x{\xi}
+\def\z{\zeta}
+\def\zz{{\boldsymbol{\zeta}}}
+\def\e{\eta}
+\def\h{\theta}
+\def\ll{{\boldsymbol{\lambda}}}
+\def\mm{{\boldsymbol{\mu}}}
+\def\xx{{\boldsymbol{\xi}}}
+\def\ppsi{{\boldsymbol{\psi}}}
+\def\LL{{\boldsymbol{\Lambda}}}
+
+
+
+\def\DD{Д\ о\ к\ а\ з\ а\ т\ е\ л\ ь\ с\ т\ в\ о}
+\def\D{\mathbb D}
+\def\C{\mathbb C}
+\def\R{\mathbb R}
+\def\Z{\mathbb Z}
+\def\V{\mathbb V}
+
+
+\def\r{\rho}
+\def\x{\xi}
+
+\pagestyle{empty} 
+
+%    \raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{3.png}}
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+    Билеты на 20 баллов
+\end{center}
+\begin{center} {\Large Билет №1 (20 баллов)} \end{center}
+Вопрос на 3. Аксиомы дискретной вероятности. Примеры. \\
+Вопрос на 3.  Опр. (вероятностного пространства). Примеры. \\
+Вопрос на 3.  Свойства характеристических функций (значение в нуле, линейное преобразование, сумма независимых, гладкость в нуле) (без док-ва). \\
+Вопрос на 3.  Теорема (центральная предельная теорема) (без док-ва). \\
+Вопрос на 3.  Опр. (сходимости по вероятности). \\
+\begin{center} {\Large Билет №2 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (логнормального распределения). Вычисление плотности. \\
+Вопрос на 3.  Опр. (условной вероятности).  Свойство (о перемножении вероятностей). \\ 
+Вопрос на 3. Следствие (о независимости и корреляции для нормального вектора) (без док-ва). \\ 
+Вопрос на 3.  Теорема (закон больших чисел Хинчина) (без док-ва). \\
+Вопрос на 3.  Опр. (гамма распределения). Доказательство, что это действительно распределение. \\
+\begin{center} {\Large Билет №3 (20 баллов)} \end{center}
+Вопрос на 3. Опр. (коэффициента корреляции Спирмена). \\
+Вопрос на 3.  Опр. (многомерного равномерного распределения). \\
+Вопрос на 3. Теорема (критерий сходимости по распределению) (без док-ва). \\
+Вопрос на 3.  Теорема (закон больших чисел Хинчина) (без док-ва). \\
+Вопрос на 3.   Опр. (распределения Пуассона). Доказательство, что это действительно распределение. \\
+\begin{center} {\Large Билет №4 (20 баллов)} \end{center}
+Вопрос на 3. Опр. (распределения Бернулли).  Пример случайных экспериментов и случайной величины с этим распределением. \\
+Вопрос на 3. Опр. (гауссовской копулы). \\
+Вопрос на 3.  Теорема (с.к.с. vs p vs п.н.) (без док-ва). \\ 
+Вопрос на 3. Теорема (неравенство Маркова). (без док-ва) \\
+Вопрос на 3. Опр. (абсолютно непрерывного распределения). Примеры. \\
+\begin{center} {\Large Билет №5 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (математического ожидания для простой случайной величины). \\
+Вопрос на 3.  Опр. (операций над событиями, несовместных событий). \\
+Вопрос на 3.  Замечание (о вычисление и существование х.ф.). \\
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для преобразований случайных величин (одномерных и многомерных преобразований)). \\
+Вопрос на 3.  Опр. (нормального (гауссовского) распределения). Свойство линейных преобразований с доказательством. \\
+\begin{center} {\Large Билет №6 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (сходимости в среднеквадратическом). \\
+Вопрос на 3. Опр. (копулы). \\
+Вопрос на 3. Теорема (о линейном преобразование для нормального вектора) (без док-ва). \\
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для дискретных, для а.н.р). \\
+Вопрос на 3. Опр. (сходимости по вероятности). \\
+\begin{center} {\Large Билет №7 (20 баллов)} \end{center}
+Вопрос на 3. Опр. ($k-$ого момента, $k$-ого центрального момента). Формулы для вычисления у дискретного и а.н.р. \\
+Вопрос на 3.  Опр. (полной группы событий). \\
+Вопрос на 3.  Теорема (формула Бернулли) (без док-ва). \\
+Вопрос на 3. Теорема (центральная предельная теорема) (без док-ва). \\
+Вопрос на 3.  Опр. (функции распределения). Примеры. \\
+\begin{center} {\Large Билет №8 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (простой случайной величины). \\
+Вопрос на 3.  Опр. (математического ожидания для случайного вектора и случайной матрицы). \\
+Вопрос на 3.  Свойства коэффициента корреляции (без док-ва). \\
+Вопрос на 3.  Теорема (центральная предельная теорема) (без док-ва). \\
+Вопрос на 3.  Опр. (независимых случайных величин). \\
+\begin{center} {\Large Билет №9 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (коэффициента корреляции Кендалла). \\
+Вопрос на 3.  Опр. (пространства элементарных исходов), примеры пространств элементарных исходов и событий. \\
+Вопрос на 3.  Теорема о непрерывном соответствие (без док-ва). \\
+Вопрос на 3. Теорема (закон больших чисел Хинчина) (без док-ва). \\
+Вопрос на 3.  Опр. (показательного распределения). Доказательство, что это действительно распределение. Свойство нестарения. Вычисление функции распределения.  \\  
+\begin{center} {\Large Билет №10 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (сингулярного распределения). Примеры. \\
+Вопрос на 3.  Опр. (распределения случайной величины). Примеры распределений, как вероятностных мер. \\
+Вопрос на 3.  Свойства функций распределения (без док-ва). \\
+Вопрос на 3.  Теорема (неравенство Маркова). (без док-ва) \\
+Вопрос на 3.  Опр. (сходимости почти наверное). \\
+\begin{center} {\Large Билет №11 (20 баллов)} \end{center}
+Вопрос на 3.  Опр.( сигма – алгебры). Примеры сигма-алгебр. \\
+Вопрос на 3.  Опр. (двух независимых событий). \\
+Вопрос на 3.  Теорема Слуцкого (без док-ва). \\
+Вопрос на 3. Теорема (закон больших чисел Колмогорова) (без док-ва). \\
+Вопрос на 3.  Опр. (дискретного распределения). Примеры. \\
+\begin{center} {\Large Билет №12 (20 баллов)} \end{center}
+Вопрос на 3.  Аксиомы классической вероятностной модели. Примеры случайных экспериментов, которые одновременно могут быть описаны классической и неклассической вероятностной схемой. \\
+Вопрос на 3.  Опр. (коэффициентов экстремальной зависимости). \\
+Вопрос на 3. Теорема (по вероятности vs слабая) (без док-ва). \\  
+Вопрос на 3.  Теорема (закон больших чисел Колмогорова) (без док-ва). \\
+Вопрос на 3.  Опр. (равномерного распределения). Доказательство, что это действительно распределение. Вычисление функции распределения. Пример случайных экспериментов и случайной величины с этим распределением. \\
+\begin{center} {\Large Билет №13 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (матрицы ковариации случайного вектора). \\
+Вопрос на 3.  Опр. (многомерного абсолютно непрерывного распределения). \\
+Вопрос на 3.  Теорема (об эквивалентных определениях независимости) (без док-ва). \\
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для дискретных, для а.н.р). \\
+Вопрос на 3. Опр. (абсолютно непрерывного распределения). Примеры. \\
+\begin{center} {\Large Билет №14 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (условного математического ожидания). \\
+Вопрос на 3.  Опр. (дисперсии, стандартного отклонения). \\ 
+Вопрос на 3.  Теорема (неравенство Йенсена) (без док-ва). \\
+Вопрос на 3.  Теорема (неравенство Маркова). (без док-ва) \\
+Вопрос на 3. Опр. (дискретного распределения). Примеры. \\
+\begin{center} {\Large Билет №15 (20 баллов)} \end{center}
+Вопрос на 3.    Опр. (квантили для непрерывной функции распределения). \\
+Вопрос на 3.  Опр. (коэффициента корреляции). \\
+Вопрос на 3.  Теорема (п.н. vs по вероятности)  (без док-ва). \\
+Вопрос на 3.  Теорема (центральная предельная теорема) (без док-ва). \\
+Вопрос на 3.  Опр. (распределения Коши). Доказательство, что это действительно распределение. Вычисление функции распределения. \\
+\begin{center} {\Large Билет №16 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (равномерной интегрируемости). \\
+Вопрос на 3.  Опр. (распределения Парето). Доказательство, что это действительно распределение. Вычисление функции распределения. \\
+Вопрос на 3.  Следствие об устойчивости по суммированию (без док-ва). \\
+Вопрос на 3.  Теорема (закон больших чисел Колмогорова) (без док-ва). \\
+Вопрос на 3.  Опр. (многомерного нормального распределения). Вид плотности для многомерного стандартного нормального вектора. \\ 
+\begin{center} {\Large Билет №17 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (математического ожидания). \\
+Вопрос на 3.  Опр. (вырожденного распределения). Пример случайных экспериментов и случайной величины с этим распределением. \\
+Вопрос на 3.  Теорема (неравенство Берри-Эссеена) (без док-ва). \\
+Вопрос на 3.  Теорема (закон больших чисел Колмогорова) (без док-ва). \\
+Вопрос на 3.  Опр. (событий, независимых в совокупности). \\
+\begin{center} {\Large Билет №18 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (ковариации двух случайных величин). \\
+Вопрос на 3.  Опр. (борелевской сигма-алгебра). \\
+Вопрос на 3. Теорема (критерий сходимости математических ожиданий) (без док-ва). \\
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для дискретных, для а.н.р). \\
+Вопрос на 3.  Опр. (биномиального распределения). Доказательство, что это действительно распределение. Пример случайных экспериментов и случайной величины с этим распределением. \\     
+\begin{center} {\Large Билет №19 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (случайного вектора). \\
+Вопрос на 3. Опр. (смешанного распределения). Примеры. \\
+Вопрос на 3.  Лемма (вычисление УМО для а.н.р.)  (без док-ва). \\
+Вопрос на 3. Замечание (о вычисление  математического ожидания для преобразований случайных величин (одномерных и многомерных преобразований)). \\
+Вопрос на 3.   Опр. (смеси распределений). Пример задания смеси двойной рандомизацией. \\
+\begin{center} {\Large Билет №20 (20 баллов)} \end{center}
+Вопрос на 3.  Опр (носителя случайной величины). \\
+Вопрос на 3.  Опр. (Схемы Бернулли). Примеры экспериментов со схемой Бернулли. \\
+Вопрос на 3. Свойства ковариации (без док-ва). \\
+Вопрос на 3.  Теорема (неравенство Маркова). (без док-ва) \\
+Вопрос на 3.  Опр. (слабой сходимости). \\
+\begin{center} {\Large Билет №21 (20 баллов)} \end{center}
+Вопрос на 3. Опр. (вероятностной меры). \\
+Вопрос на 3.  Теорема о существование УМО (без док-ва). \\
+Вопрос на 3.  Лемма (вычисление УМО для дискретных). (без док-ва). \\
+Вопрос на 3. Замечание (о вычисление  математического ожидания для преобразований случайных величин (одномерных и многомерных преобразований)). \\
+Вопрос на 3.   Опр. (геометрического распределения). Доказательство, что это действительно распределение. Свойство нестарения. Пример случайных экспериментов и случайной величины с этим распределением. \\      
+\begin{center} {\Large Билет №22 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (дискретного многомерного распределения). Свойства. Примеры. \\
+Вопрос на 3.  Опр. (гипергеометрического распределения). Доказательство, что это действительно распределение. Пример случайных экспериментов и случайной величины с этим распределением. \\      
+Вопрос на 3.  Следствие (о независимости и  ортогональном преобразование нормального вектора) (без док-ва). \\ 
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для дискретных, для а.н.р). \\
+Вопрос на 3.  Опр. (совместного распределения и  совместной функции распределения). \\
+\begin{center} {\Large Билет №23 (20 баллов)} \end{center}
+Вопрос на 3.  Опр. (случайной величины). \\ 
+Вопрос на 3.   Опр. (квантили в общей случае). \\
+Вопрос на 3. Теорема (обобщенное неравенство Чебышёва) (без док-ва). \\
+Вопрос на 3. Теорема (закон больших чисел Хинчина) (без док-ва). \\
+Вопрос на 3.  Опр. (характеристической функции). \\
+\begin{center} {\Large Билет №24 (20 баллов)} \end{center}
+Вопрос на 3. Аксиомы геометрической вероятностной модели. Примеры. \\
+Вопрос на 3.  Опр. (математического ожидания для простой случайной величины по событию). \\
+Вопрос на 3. Свойство  математического ожидания для независимых случайных величин (без док-ва). \\
+Вопрос на 3.  Замечание (о вычисление  математического ожидания для преобразований случайных величин (одномерных и многомерных преобразований)). \\
+Вопрос на 3. Опр. (слабой сходимости). \\
+
+
+\begin{center}
+    Билеты на 30 баллов
+\end{center}
+
+
+\begin{center} {\Large Билет №1 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Примеры базовых копул. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (о сохранение независимости при преобразованиях). Доказательство. \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие из неравенства Маркова о распределение неотрицательной с.в. с нулевым МО. Доказательство. \\
+\begin{center} {\Large Билет №2 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Нахождение маргинальных плотностей по многомерной плотности. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства многомерного математического ожидания (линейность, произведение независимых матриц). Доказательство. \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (об идеальной зависимости). Доказательство. \\
+\begin{center} {\Large Билет №3 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства вероятностной меры с доказательствами (вероятность пустого мн-ва, дизъюнктного объединения, дополнения, объединения двух мн-в, монотонность). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойство  математического ожидания для независимых случайных величин. Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема Лебега. Доказательство. \\
+\begin{center} {\Large Билет №4 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Примеры вычисления математического ожидания (Бернулли, биномиальное (двумя способами,нормальное). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Пример (парадокс Бертрана). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}}  Теорема (закон больших чисел Хинчина).  Доказательство. \\
+\begin{center} {\Large Билет №5 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства математического ожидания для  простых случайных величин с доказательством. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (неравенство Коши-Буняковского). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (свертка для дискретных). Доказательство. \\
+\begin{center} {\Large Билет №6 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула полной вероятности). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства ковариации с доказательством. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (о единственности предела для математического ожидания от простых). Доказательство. \\ 
+\begin{center} {\Large Билет №7 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Примеры вычисления характеристических функций (вырожденное, Пуассона, нормальное). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (центральная предельная теорема). Доказательство. \\        
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства УМО с доказательством (УМО константы, УМО от измеримой с.в., монотонность,  линейность, неравенство треугольника,  аналог формулы полной вероятности). \\
+\begin{center} {\Large Билет №8 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула полной вероятности). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула Бернулли). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (обобщенное неравенство Чебышёва). Доказательство. \\
+\begin{center} {\Large Билет №9 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства сигма-алгебр с доказательствами (пустое мно-во, конечное объединение, счетное пересечение). Формула двойственности. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Примеры вероятностных пространств и функций, которые являются или не являются случайными величинами с доказательством. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства функций распределения с доказательствами. \\
+\begin{center} {\Large Билет №10 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (из ЦПТ). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (номер первого успешного испытания в схеме Бернулли). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (неравенство Йенсена). Доказательство. \\
+\begin{center} {\Large Билет №11 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Классическое неравенство Чебышёва. Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (о независимости и корреляции для нормального вектора). Доказательство. \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема Пуассона для схемы Бернулли. Доказательство. \\
+\begin{center} {\Large Билет №12 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Замечание (почему так важна формула обращения для характеристических функций?). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства матрицы ковариации (при линейном преобразование, для суммы независимых случайных векторов). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (с.к.с. vs p vs п.н.). Доказательство. \\ 
+\begin{center} {\Large Билет №13 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Классическое неравенство Чебышёва. Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Контрпример не нормального вектора с нормальными одномерными компонентами. Доказательство. \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (критерий сходимости п.н.). Доказательство. \\
+\begin{center} {\Large Билет №14 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}}  Пример (Бернштейна). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства ковариации с доказательством. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (неравенство Маркова). Доказательство. \\
+\begin{center} {\Large Билет №15 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула Байеса). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Пример (задача о разорении для двух игроков при помощи ФПВ). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (вычисление УМО для а.н.р.). Доказательство. \\
+\begin{center} {\Large Билет №16 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства дисперсии с доказательством (альтернативный способ вычисления, критерий вырожденности, линейные преобр. одной случайной величины ). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Замечание (о неулучшаемости неравенства Берри-Эссеена). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (о независимости и корреляции для нормального вектора). Доказательство. \\
+\begin{center} {\Large Билет №17 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства независимых событий с доказательством (несовместность, условная вероятность, \\ теоретико-множественные операции). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (неравенства Frechet-Hoeffding). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (о приближение случайной величины простыми). Доказательство. \\
+\begin{center} {\Large Билет №18 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (о существование математического ожидания меньших порядков). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства совместной функции распределения. Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (сходимость и арифметические операции). Доказательство. \\
+\begin{center} {\Large Билет №19 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула Байеса). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие об устойчивости по суммированию. Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (формула Бернулли). Доказательство. \\
+\begin{center} {\Large Билет №20 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (из ЦПТ). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (свертка для дискретных).  Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (о плотности). Доказательство. \\
+\begin{center} {\Large Билет №21 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства дисперсии с доказательством (дисперсия суммы независимых с.в., оптимизационная задача). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Основные свойства математического ожидания с доказательством (Однородность, монотонность, нер-во треугольника, аддитивность). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}}   Пример сингулярного распределения (лестница Кантора). \\
+\begin{center} {\Large Билет №22 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства дисперсии с доказательством (альтернативный способ вычисления, критерий вырожденности, линейные преобр. одной случайной величины ). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Следствие (о независимости и  ортогональном преобразование нормального вектора). Доказательство. \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (о коэффициентах экстремальной зависимости в непрерывном случае). Доказательство. \\
+\begin{center} {\Large Билет №23 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Примеры вычисления дисперсии (Бернулли, биномиального и нормального). \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (о плотности и линейном преобразование случайных величин). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Теорема (Шкляра). Доказательство в непрерывном случае. \\
+\begin{center} {\Large Билет №24 (30 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Свойства дисперсии с доказательством (дисперсия суммы независимых с.в., оптимизационная задача). \\ 
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма  (сходимость при непрерывных преобразованиях). Доказательство. \\
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{4.png}} Лемма (вычисление УМО для дискретных). Доказательство. \\
+
+
+\begin{center}
+    Билеты на 40 баллов
+\end{center}
+
+
+\begin{center} {\Large Билет №1 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Свойства характеристических функций с доказательством (значение в нуле, линейное преобразование, сумма независимых, гладкость в нуле). \\
+\begin{center} {\Large Билет №2 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (об эквивалентных определениях независимости). Доказательство. \\
+\begin{center} {\Large Билет №3 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема Слуцкого. Доказательство. \\
+\begin{center} {\Large Билет №4 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (полиномиальная схема). Доказательство. \\
+\begin{center} {\Large Билет №5 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Вычисление интеграла от плотности нормального распределения.  Свойства нормального распределения с доказательством (лин. преобр., равенства для $\Phi_{0,1},$ правило трех сигм). \\
+\begin{center} {\Large Билет №6 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (п.н. vs по вероятности). Доказательство. \\
+\begin{center} {\Large Билет №7 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (закон больших чисел Колмогорова). Доказательство достаточности при 4-ом моменте. \\
+\begin{center} {\Large Билет №8 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}}  Свойство счетной аддитивности математического ожидания. Доказательство. \\
+\begin{center} {\Large Билет №9 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (оценка точности в теореме Пуассона). Доказательство. \\
+\begin{center} {\Large Билет №10 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Свойства коэффициентов корреляции Спирмена и Кендалла. Доказательство. \\ 
+\begin{center} {\Large Билет №11 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Свойства коэффициента корреляции с доказательством. \\
+\begin{center} {\Large Билет №12 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}}  Теорема (о квантильном преобразование). Доказательство. \\
+\begin{center} {\Large Билет №13 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (формула обращения). Доказательство. \\
+\begin{center} {\Large Билет №14 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (по вероятности vs слабая). Доказательство. \\  
+\begin{center} {\Large Билет №15 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Свойства УМО с доказательством (УМО по более бедной сигма алгебре, вынос измеримой с.в. ). \\
+\begin{center} {\Large Билет №16 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (Бореля-Кантелли). Доказательство. \\
+\begin{center} {\Large Билет №17 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (УМО для гауссовских векторов). Доказательство. \\
+\begin{center} {\Large Билет №18 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (об инвариантности копулы при строго возрастающем преобразовании). Доказательство. \\
+\begin{center} {\Large Билет №19 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (о линейном преобразование для нормального вектора). Доказательство. \\
+\begin{center} {\Large Билет №20 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}}   Теорема (о квантилях и линейном преобазование случайных величин, обобщенная обратная функция). Доказательство. \\
+\begin{center} {\Large Билет №21 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Свойства  вероятностной меры с доказательством (вероятность объединения счетного набора, непрерывность вер. меры, формула включения/исключения). \\
+\begin{center} {\Large Билет №22 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема об ортогональной проекции. Доказательство. \\
+\begin{center} {\Large Билет №23 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (о правой границе неравенства Frechet-Hoeffding).  Доказательство. \\
+\begin{center} {\Large Билет №24 (40 баллов)} \end{center}
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{5.png}} Теорема (о свертке для произвольных распределений). Доказательство. Следствие об а.н.р. суммы. \\ 
+
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 1 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 2 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 3 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 4 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 5 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 6 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 7 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 8 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 9 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 10 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 11 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 12 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 13 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 14 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 15 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 16 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 17 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 18 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 19 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 20 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 21 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 22 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 23 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 24 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 25 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 26 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 27 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 28 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 29 \\ 
+
+\raisebox{-1pt}[0pt][0pt]{\includegraphics[width=0.02\linewidth]{z.png}} Задача 30 \\ 
+
+
+
+\end{document}

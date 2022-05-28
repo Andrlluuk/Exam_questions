@@ -12,7 +12,6 @@ from PIL import Image
 
 def handle_image(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
-        print(type(f.name))
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -29,7 +28,7 @@ def create_pdf(folder, name, params):
         idx += 1
 
     #creation
-    questions_pool = {3: [], 4: [], 5: [], 6: []}
+    questions_pool = {3: [], 4: [], 5: [], 6: []} #6->problem
     for line in all_questions:
         if params['label_3'] in line:
             questions_pool[3].append(line)
@@ -132,9 +131,10 @@ def create_pages(folder, name, params):
     pdf.output("tickets.pdf", "F")
     os.chdir("../../..")
 
-
-
 def index(request):
+    return render(request, 'index.html')
+
+def load(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -142,14 +142,16 @@ def index(request):
             return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}")
     else:
         form = UploadFileForm()
-    return render(request, 'index.html', {'form': form})
+    return render(request, 'load.html', {'form': form})
 
 def params(request, filename):
     if request.method == 'POST':
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
-            create_pages("exam_questions/static/upload/", filename, {'label_3': '3.png', 'label_4': '4.png',
-                                                                   'label_5': '5.png', 'label_problem': 'z.png',
+            create_pages("exam_questions/static/upload/", filename, {'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
+                                                                     'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
+                                                                     'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
+                                                                     'label_problem': str(request.FILES['label_problem']) if form.cleaned_data['label_problem'] else 'Задача',
                                                                    'number_of_tickets': form.cleaned_data['num_tickets'],
                                                                     3: form.cleaned_data['num_questions_3_in_ticket'],
                                                                     4: form.cleaned_data['num_questions_4_in_ticket'],

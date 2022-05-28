@@ -16,8 +16,8 @@
 <div class="container">
 
       <!--Simple Form-->
-      <h2 class="my-4">Задайте параметры и выберите формат для скачивания</h2>
-      <form method="post" class="post-form">
+
+    <form method="post" class="post-form" enctype="multipart/form-data">
           {% csrf_token %}
           {{ form.as_p }}
             <button class="save btn btn-dark my-4" type="submit">Предварительный просмотр</button>
