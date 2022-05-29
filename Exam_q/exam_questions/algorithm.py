@@ -4,8 +4,8 @@ from pdf2image import convert_from_path
 from fpdf import FPDF
 from PIL import Image
 import subprocess
-from django.http.response import HttpResponse
 from docx import Document
+from timeit import default_timer as timer
 
 
 def doc_parsing(folder, name, params):
@@ -25,6 +25,12 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_3']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[3].append(line)
         elif params['label_4'] in line:
             if not params['show']:
@@ -33,6 +39,12 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_4']) + 2:]
                 else:
                     line = line.replace(params['label_4'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[4].append(line)
         elif params['label_5'] in line:
             if not params['show']:
@@ -41,6 +53,12 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_5']) + 2:]
                 else:
                     line = line.replace(params['label_5'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[5].append(line)
         elif params['label_problem'] in line:
             questions_pool[6].append(line)
@@ -53,8 +71,11 @@ def doc_parsing(folder, name, params):
                     choice = random.choice(questions_pool[point])
                 except:
                     return "Error"
+                start = timer()
                 while choice in questions:
                     choice = random.choice(questions_pool[point])
+                    if timer() - start > 1:
+                        return "Error"
                 questions.append(choice)
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
@@ -123,6 +144,12 @@ def create_pages(folder, name, params):
                     line = line[pos + len(params['label_3']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[3].append(line)
         elif params['label_4'] in line:
             if not params['show']:
@@ -131,6 +158,12 @@ def create_pages(folder, name, params):
                     line = line[pos + len(params['label_4']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[4].append(line)
         elif params['label_5'] in line:
             if not params['show']:
@@ -139,6 +172,12 @@ def create_pages(folder, name, params):
                     line = line[pos + len(params['label_5']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha(): # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
             questions_pool[5].append(line)
         elif params['label_problem'] in line:
             questions_pool[6].append(line)
@@ -151,8 +190,11 @@ def create_pages(folder, name, params):
                     choice = random.choice(questions_pool[point])
                 except:
                     return "Error"
+                start = timer()
                 while choice in questions:
                     choice = random.choice(questions_pool[point])
+                    if timer() - start > 1:
+                        return "Error"
                 questions.append(choice)
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
