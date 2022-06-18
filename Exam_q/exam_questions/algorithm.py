@@ -134,9 +134,16 @@ def create_pages(folder, name, params):
         title.append(all_questions[idx])
         idx += 1
 
+    po = 0
         # creation
-    questions_pool = {3: [], 4: [], 5: [], 6: []}
+    questions_pool = {}
+    part_number = 0
     for line in all_questions:
+        if line[0] == '%':
+            continue
+        if 'Глава' in line:
+            part_number += 1
+            questions_pool[part_number] = {3: [], 4: [], 5: [], 6: []}
         if params['label_3'] in line:
             if not params['show']:
                 if ".png" in params['label_3'] or ".jpg" in params['label_3'] or ".jpeg" in params['label_3']:
@@ -150,7 +157,7 @@ def create_pages(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[3].append(line)
+            questions_pool[part_number][3].append(line)
         elif params['label_4'] in line:
             if not params['show']:
                 if ".png" in params['label_4'] or ".jpg" in params['label_4'] or ".jpeg" in params['label_4']:
@@ -164,7 +171,7 @@ def create_pages(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[4].append(line)
+            questions_pool[part_number][4].append(line)
         elif params['label_5'] in line:
             if not params['show']:
                 if ".png" in params['label_5'] or ".jpg" in params['label_5'] or ".jpeg" in params['label_5']:
@@ -178,24 +185,36 @@ def create_pages(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[5].append(line)
+            questions_pool[part_number][5].append(line)
         elif params['label_problem'] in line:
-            questions_pool[6].append(line)
+            questions_pool[part_number][6].append(line)
+    keys = []
+    for key in questions_pool.keys():
+        keys.append(key)
+    num_of_q = params[3] + params[4] + params[5] + params[6]
+    num_of_topics = len(keys)
+    density = num_of_q/num_of_topics
     for ticket in range(params['number_of_tickets']):
+        weights = {}
+        for key in questions_pool.keys():
+            weights[key] = 0
         questions = []
         points = [3, 4, 5, 6]
         for point in points:
             for question in range(params[point]):
                 try:
-                    choice = random.choice(questions_pool[point])
+                    part_choice = random.choice(keys)
+                    choice = random.choice(questions_pool[part_choice][point])
                 except:
                     return "Error"
                 start = timer()
-                while choice in questions:
-                    choice = random.choice(questions_pool[point])
-                    if timer() - start > 1:
-                        return "Error"
+                while (choice in questions) or (weights[part_choice] >= density):
+                    part_choice = random.choice(keys)
+                    choice = random.choice(questions_pool[part_choice][point])
+                   # if timer() - start > 1:
+                   #     return "Error"
                 questions.append(choice)
+                weights[part_choice] += 1
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
             for line in title:
