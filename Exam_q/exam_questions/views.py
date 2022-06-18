@@ -7,7 +7,7 @@ from .algorithm import create_pages
 from .algorithm import doc_parsing
 import os
 
-def handle_image(f):
+def handle_file(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
@@ -20,8 +20,12 @@ def load(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_image(request.FILES['file'])
-            return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}")
+            handle_file(request.FILES['file'])
+            if(form.cleaned_data['additional_file']):
+                handle_file(request.FILES['additional_file'])
+                return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}&{request.FILES['additional_file'].name}")
+            else:
+                return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}")
     else:
         form = UploadFileForm()
     return render(request, 'load.html', {'form': form})
@@ -30,21 +34,15 @@ def params(request, filename):
     if request.method == 'POST':
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
-            if(form.cleaned_data['label_3']):
-                handle_image(request.FILES['label_3'])
-            if (form.cleaned_data['label_4']):
-                handle_image(request.FILES['label_4'])
-            if (form.cleaned_data['label_5']):
-                handle_image(request.FILES['label_5'])
-            if (form.cleaned_data['label_problem']):
-                handle_image(request.FILES['label_problem'])
-
+            filename1 = filename.split("&")[0]
+            if len(filename.split("&")) == 2:
+                filename2 = filename.split("&")[1]
             _, file_extension = os.path.splitext(filename)
             if (file_extension == '.docx'):
-                tx = doc_parsing("exam_questions/static/upload/", filename, {'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
-                                                                     'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
-                                                                     'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
-                                                                     'label_problem': str(request.FILES['label_problem']) if form.cleaned_data['label_problem'] else 'Задача',
+                tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': 'Вопрос на 3',
+                                                                     'label_4': 'Вопрос на 4',
+                                                                     'label_5': 'Вопрос на 5',
+                                                                     'label_problem': 'Задача',
                                                                    'number_of_tickets': form.cleaned_data['num_tickets'],
                                                                     3: form.cleaned_data['num_questions_3_in_ticket'],
                                                                     4: form.cleaned_data['num_questions_4_in_ticket'],
@@ -52,12 +50,11 @@ def params(request, filename):
                                                                     6: form.cleaned_data['num_problems_in_ticket'],
                                                                     'show': form.cleaned_data['show']})
             else:
-                tx = create_pages("exam_questions/static/upload/", filename, {
-                    'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
-                    'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
-                    'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
-                    'label_problem': str(request.FILES['label_problem']) if form.cleaned_data[
-                        'label_problem'] else 'Задача',
+                tx = create_pages("exam_questions/static/upload/", filename1, {
+                    'label_3': 'Вопрос на 3',
+                    'label_4': 'Вопрос на 4',
+                    'label_5': 'Вопрос на 5',
+                    'label_problem': 'Задача',
                     'number_of_tickets': form.cleaned_data['num_tickets'],
                     3: form.cleaned_data['num_questions_3_in_ticket'],
                     4: form.cleaned_data['num_questions_4_in_ticket'],
