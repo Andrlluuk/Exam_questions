@@ -138,55 +138,50 @@ def create_pages(folder, name, params):
         # creation
     questions_pool = {}
     part_number = 0
+    ind_3 = False;
+    ind_4 = False;
+    ind_5 = False;
+    ind_6 = False;
     for line in all_questions:
         if line[0] == '%':
             continue
+
+        if '\end' in line:
+            ind_3 = False
+            ind_4 = False
+            ind_5 = False
+            ind_6 = False
         if 'Глава' in line:
+            ind_3 = False
+            ind_4 = False
+            ind_5 = False
+            ind_6 = False
             part_number += 1
             questions_pool[part_number] = {3: [], 4: [], 5: [], 6: []}
-        if params['label_3'] in line:
-            if not params['show']:
-                if ".png" in params['label_3'] or ".jpg" in params['label_3'] or ".jpeg" in params['label_3']:
-                    pos = line.find(params['label_3'])
-                    line = line[pos + len(params['label_3']) + 2:]
-                else:
-                    line = line.replace(params['label_3'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
+        if 'Вопросы на 3' in line:
+            ind_6 = False
+            ind_3 = True
+            continue
+        if 'Вопросы на 4' in line:
+            ind_3 = False
+            ind_4 = True
+            continue
+        if 'Вопросы на 5' in line:
+            ind_4 = False
+            ind_5 = True
+            continue
+        if 'Задачи' in line:
+            ind_5 = False
+            ind_6 = True
+            continue
 
-                line = line[po:]
+        if ind_3 == True:
             questions_pool[part_number][3].append(line)
-        elif params['label_4'] in line:
-            if not params['show']:
-                if ".png" in params['label_4'] or ".jpg" in params['label_4'] or ".jpeg" in params['label_4']:
-                    pos = line.find(params['label_4'])
-                    line = line[pos + len(params['label_4']) + 2:]
-                else:
-                    line = line.replace(params['label_3'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
-
-                line = line[po:]
+        if ind_4 == True:
             questions_pool[part_number][4].append(line)
-        elif params['label_5'] in line:
-            if not params['show']:
-                if ".png" in params['label_5'] or ".jpg" in params['label_5'] or ".jpeg" in params['label_5']:
-                    pos = line.find(params['label_5'])
-                    line = line[pos + len(params['label_5']) + 2:]
-                else:
-                    line = line.replace(params['label_3'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
-
-                line = line[po:]
+        if ind_5 == True:
             questions_pool[part_number][5].append(line)
-        elif params['label_problem'] in line:
+        if ind_6 == True:
             questions_pool[part_number][6].append(line)
     keys = []
     for key in questions_pool.keys():
