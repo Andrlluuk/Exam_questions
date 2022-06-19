@@ -296,7 +296,9 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
             f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket + 1))
             f.write('\n')
             for line in questions:
-                f.write('%s\\\\\n' % line)
+                f.write('%s' % line)
+                f.write('\\\\\n')
+                f.write('\n')
             f.write('\\end{document}')
         os.chdir(folder)
         # os.system(f"pdflatex tickets{ticket + 1}.tex")
