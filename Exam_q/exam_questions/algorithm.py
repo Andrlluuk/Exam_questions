@@ -15,7 +15,7 @@ def doc_parsing(folder, name, params):
     all_questions = []
 
     # creation
-    questions_pool = {3: [], 4: [], 5: [], 6: []}
+    questions_pool = {3: [], 4: [], 5: [], 6: [], }
     for line in doc.paragraphs:
         line = line.text
         if params['label_3'] in line:
@@ -25,6 +25,7 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_3']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha(): # True if its a letter
                         po = i  # first letter position
@@ -39,6 +40,7 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_4']) + 2:]
                 else:
                     line = line.replace(params['label_4'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha(): # True if its a letter
                         po = i  # first letter position
@@ -53,6 +55,7 @@ def doc_parsing(folder, name, params):
                     line = line[pos + len(params['label_5']) + 2:]
                 else:
                     line = line.replace(params['label_5'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha(): # True if its a letter
                         po = i  # first letter position
