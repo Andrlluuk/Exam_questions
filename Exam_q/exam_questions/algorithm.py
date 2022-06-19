@@ -121,75 +121,12 @@ def parse_doc(folder, name, params):
     doc = Document(filename)
     all_questions = []
     questions_pool = {}
+    part_number = 0
+    questions_pool[part_number] = {3: [], 4: [], 5: [], 6: []}
     for line in doc.paragraphs:
         line = line.text
-        if params['label_3'] in line:
-            if not params['show']:
-                if ".png" in params['label_3'] or ".jpg" in params['label_3'] or ".jpeg" in params['label_3']:
-                    pos = line.find(params['label_3'])
-                    line = line[pos + len(params['label_3']) + 2:]
-                else:
-                    line = line.replace(params['label_3'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
-
-                line = line[po:]
-            questions_pool[3].append(line)
-        elif params['label_4'] in line:
-            if not params['show']:
-                if ".png" in params['label_4'] or ".jpg" in params['label_4'] or ".jpeg" in params['label_4']:
-                    pos = line.find(params['label_4'])
-                    line = line[pos + len(params['label_4']) + 2:]
-                else:
-                    line = line.replace(params['label_4'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
-
-                line = line[po:]
-            questions_pool[4].append(line)
-        elif params['label_5'] in line:
-            if not params['show']:
-                if ".png" in params['label_5'] or ".jpg" in params['label_5'] or ".jpeg" in params['label_5']:
-                    pos = line.find(params['label_5'])
-                    line = line[pos + len(params['label_5']) + 2:]
-                else:
-                    line = line.replace(params['label_5'], "")
-                for i, x in enumerate(line):
-                    if x.isalpha(): # True if its a letter
-                        po = i  # first letter position
-                        break
-
-                line = line[po:]
-            questions_pool[5].append(line)
-        elif params['label_problem'] in line:
-            questions_pool[6].append(line)
-
-    return questions_pool, dir_path
-
-def parse_tex(folder, name, params):
-    # os.chdir(folder)
-    dir_path = os.path.dirname(folder)
-    filename = os.path.join(dir_path, name)
-    title = []
-    with open(filename, encoding='UTF-8') as f:
-        all_questions = f.readlines()
-    idx = 0
-    while 'begin{document}' not in all_questions[idx]:
-        if ('documentclass' in all_questions[idx]) or ('documentarticle' in all_questions[idx]):
-            idx += 1
+        if len(line) == 0:
             continue
-        title.append(all_questions[idx])
-        idx += 1
-
-    po = 0
-    # creation
-    questions_pool = {}
-    part_number = 0
-    for line in all_questions:
         if line[0] == '%':
             continue
         if 'Глава' in line:
@@ -215,7 +152,7 @@ def parse_tex(folder, name, params):
                     pos = line.find(params['label_4'])
                     line = line[pos + len(params['label_4']) + 2:]
                 else:
-                    line = line.replace(params['label_3'], "")
+                    line = line.replace(params['label_4'], "")
                 for i, x in enumerate(line):
                     if x.isalpha():  # True if its a letter
                         po = i  # first letter position
@@ -229,7 +166,81 @@ def parse_tex(folder, name, params):
                     pos = line.find(params['label_5'])
                     line = line[pos + len(params['label_5']) + 2:]
                 else:
+                    line = line.replace(params['label_5'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha():  # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
+            questions_pool[part_number][5].append(line)
+        elif params['label_problem'] in line:
+            questions_pool[part_number][6].append(line)
+
+    return questions_pool, dir_path
+
+def parse_tex(folder, name, params):
+    # os.chdir(folder)
+    dir_path = os.path.dirname(folder)
+    filename = os.path.join(dir_path, name)
+    title = []
+    with open(filename, encoding='UTF-8') as f:
+        all_questions = f.readlines()
+    idx = 0
+    while 'begin{document}' not in all_questions[idx]:
+        if ('documentclass' in all_questions[idx]) or ('documentarticle' in all_questions[idx]):
+            idx += 1
+            continue
+        title.append(all_questions[idx])
+        idx += 1
+
+    po = 0
+    # creation
+    questions_pool = {}
+    part_number = 0
+    for line in all_questions:
+        if len(line) == 0:
+            continue
+        if line[0] == '%':
+            continue
+        if 'Глава' in line:
+            part_number += 1
+            questions_pool[part_number] = {3: [], 4: [], 5: [], 6: []}
+        if params['label_3'] in line:
+            if not params['show']:
+                if ".png" in params['label_3'] or ".jpg" in params['label_3'] or ".jpeg" in params['label_3']:
+                    pos = line.find(params['label_3'])
+                    line = line[pos + len(params['label_3']) + 2:]
+                else:
                     line = line.replace(params['label_3'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha():  # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
+            questions_pool[part_number][3].append(line)
+        elif params['label_4'] in line:
+            if not params['show']:
+                if ".png" in params['label_4'] or ".jpg" in params['label_4'] or ".jpeg" in params['label_4']:
+                    pos = line.find(params['label_4'])
+                    line = line[pos + len(params['label_4']) + 2:]
+                else:
+                    line = line.replace(params['label_4'], "")
+                for i, x in enumerate(line):
+                    if x.isalpha():  # True if its a letter
+                        po = i  # first letter position
+                        break
+
+                line = line[po:]
+            questions_pool[part_number][4].append(line)
+        elif params['label_5'] in line:
+            if not params['show']:
+                if ".png" in params['label_5'] or ".jpg" in params['label_5'] or ".jpeg" in params['label_5']:
+                    pos = line.find(params['label_5'])
+                    line = line[pos + len(params['label_5']) + 2:]
+                else:
+                    line = line.replace(params['label_5'], "")
                 for i, x in enumerate(line):
                     if x.isalpha():  # True if its a letter
                         po = i  # first letter position
@@ -243,7 +254,7 @@ def parse_tex(folder, name, params):
     return questions_pool, dir_path, title
 
 
-def create_texs(questions_pool, params, dir_path, folder, title = None):
+def create_texs(questions_pool, params, dir_path, folder, title = []):
     keys = []
     for key in questions_pool.keys():
         keys.append(key)
@@ -276,20 +287,23 @@ def create_texs(questions_pool, params, dir_path, folder, title = None):
                 weights[part_choice] += 1
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
-            for line in title:
-                f.write('%s\n' % line)
+            if title != []:
+                for line in title:
+                    f.write('%s\n' % line)
+            else:
+                f.write('\\usepackage[english, russian]{babel} \n')
             f.write('\\begin{document} \n')
             f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket + 1))
             f.write('\n')
             for line in questions:
-                f.write('%s\n' % line)
+                f.write('%s\\\\\n' % line)
             f.write('\\end{document}')
         os.chdir(folder)
         # os.system(f"pdflatex tickets{ticket + 1}.tex")
         subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket + 1}.tex"])
         os.chdir('../../..')
 
-def create_pdf(questions_pool, params, dir_path, folder, title = None):
+def create_pdf(questions_pool, params, dir_path, folder, title = []):
     for ticket in range(params['number_of_tickets']):
         file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
         for fil in file:
