@@ -282,10 +282,13 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
                     return "Error"
                 start = timer()
                 while (choice in questions) or (weights[part_choice] >= density):
-                    part_choice = random.choice(keys)
-                    choice = random.choice(questions_pool[part_choice][point])
-                   # if timer() - start > 1:
-                   #     return "Error"
+                    try:
+                        part_choice = random.choice(keys)
+                        choice = random.choice(questions_pool[part_choice][point])
+                    except:
+                        return "Error"
+                    if timer() - start > 1:
+                       return "Error"
                 questions.append(choice)
                 weights[part_choice] += 1
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
@@ -298,8 +301,11 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
             f.write('\\begin{document} \n')
             f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket + 1))
             f.write('\n')
-            for line in questions:
-                f.write('%s' % line)
+            for i in range(len(questions)):
+                if not params['show']:
+                    f.write('%s' % f'{i + 1}. ' + questions[i])
+                else:
+                    f.write('%s' % questions[i])
                 f.write('\\\\\n')
                 f.write('\n')
             f.write('\\end{document}')
@@ -332,10 +338,19 @@ def create_pdf(questions_pool, params, dir_path, folder, title = []):
 
 def create_pages(folder, name, params):
     questions_pool, dir_path, title = parse_tex(folder, name, params)
-    create_texs(questions_pool, params, dir_path, folder, title)
+    if (params['additional_file']):
+        _, file_extension = os.path.splitext(params['additional_file'])
+        if file_extension == ".tex":
+            questions_pool_additional, _, _ = parse_tex(folder, params['additional_file'], params)
+    for i in range(1, min(len(questions_pool) + 1, len(questions_pool_additional) + 1)):
+        for key in questions_pool[i].keys():
+            questions_pool[i][key].extend(questions_pool_additional[i][key])
+    if create_texs(questions_pool, params, dir_path, folder, title) == "Error":
+        return "Error"
     create_pdf(questions_pool, params, dir_path, folder, title)
 
 def doc_parsing(folder, name, params):
     questions_pool, dir_path = parse_doc(folder, name, params)
-    create_texs(questions_pool, params, dir_path, folder)
+    if create_texs(questions_pool, params, dir_path, folder) == "Error":
+        return "Error"
     create_pdf(questions_pool, params, dir_path, folder)

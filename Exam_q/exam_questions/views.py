@@ -38,7 +38,7 @@ def params(request, filename):
             if len(filename.split("&")) == 2:
                 filename2 = filename.split("&")[1]
             _, file_extension = os.path.splitext(filename)
-            if (file_extension == '.docx'):
+            if (file_extension == '.docx' or file_extension == '.doc'):
                 tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': 'Вопрос на 3',
                                                                      'label_4': 'Вопрос на 4',
                                                                      'label_5': 'Вопрос на 5',
@@ -48,8 +48,9 @@ def params(request, filename):
                                                                     4: form.cleaned_data['num_questions_4_in_ticket'],
                                                                     5: form.cleaned_data['num_questions_5_in_ticket'],
                                                                     6: form.cleaned_data['num_problems_in_ticket'],
-                                                                    'show': form.cleaned_data['show']})
-            else:
+                                                                    'show': form.cleaned_data['show'],
+                                                                    'additional_file': filename2})
+            elif (file_extension == '.tex'):
                 tx = create_pages("exam_questions/static/upload/", filename1, {
                     'label_3': 'Вопрос на 3',
                     'label_4': 'Вопрос на 4',
@@ -60,7 +61,10 @@ def params(request, filename):
                     4: form.cleaned_data['num_questions_4_in_ticket'],
                     5: form.cleaned_data['num_questions_5_in_ticket'],
                     6: form.cleaned_data['num_problems_in_ticket'],
-                    'show': form.cleaned_data['show']})
+                    'show': form.cleaned_data['show'],
+                    'additional_file': filename2})
+            else:
+                return ("undefined format")
             if tx == "Error":
                 return HttpResponse("Error")
             if form.cleaned_data['output_format'] == 'PDF':
