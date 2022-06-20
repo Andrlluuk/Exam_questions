@@ -38,10 +38,10 @@ def params(request, filename):
             if len(filename.split("&")) == 2:
                 filename2 = filename.split("&")[1]
             _, file_extension = os.path.splitext(filename)
-            if (file_extension == '.docx' or file_extension == '.doc'):
-                tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': 'Вопрос на 3',
-                                                                     'label_4': 'Вопрос на 4',
-                                                                     'label_5': 'Вопрос на 5',
+            if (file_extension == '.docx'):
+                tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': '3.',
+                                                                     'label_4': '4.',
+                                                                     'label_5': '5.',
                                                                      'label_problem': 'Задача',
                                                                    'number_of_tickets': form.cleaned_data['num_tickets'],
                                                                     3: form.cleaned_data['num_questions_3_in_ticket'],
@@ -52,9 +52,9 @@ def params(request, filename):
                                                                     'additional_file': filename2})
             elif (file_extension == '.tex'):
                 tx = create_pages("exam_questions/static/upload/", filename1, {
-                    'label_3': 'Вопрос на 3',
-                    'label_4': 'Вопрос на 4',
-                    'label_5': 'Вопрос на 5',
+                    'label_3': '3.',
+                    'label_4': '4.',
+                    'label_5': '5.',
                     'label_problem': 'Задача',
                     'number_of_tickets': form.cleaned_data['num_tickets'],
                     3: form.cleaned_data['num_questions_3_in_ticket'],
