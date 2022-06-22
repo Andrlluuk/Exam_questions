@@ -35,9 +35,10 @@ def params(request, filename):
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
             filename1 = filename.split("&")[0]
+            filename2 = ""
             if len(filename.split("&")) == 2:
                 filename2 = filename.split("&")[1]
-            _, file_extension = os.path.splitext(filename)
+            _, file_extension = os.path.splitext(filename1)
             if (file_extension == '.docx'):
                 tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': '3.',
                                                                      'label_4': '4.',

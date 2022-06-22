@@ -240,15 +240,26 @@ def create_pages(folder, name, params):
         _, file_extension = os.path.splitext(params['additional_file'])
         if file_extension == ".tex":
             questions_pool_additional, _, _ = parse_tex(folder, params['additional_file'], params)
-    for i in range(1, min(len(questions_pool) + 1, len(questions_pool_additional) + 1)):
-        for key in questions_pool[i].keys():
-            questions_pool[i][key].extend(questions_pool_additional[i][key])
+        elif file_extension == ".doc" or file_extension == ".docx":
+            questions_pool_additional, _ = parse_doc(folder, params['additional_file'], params)
+        for i in range(1, min(len(questions_pool), len(questions_pool_additional))):
+            for key in questions_pool[i].keys():
+                questions_pool[i][key].extend(questions_pool_additional[i][key])
     if create_texs(questions_pool, params, dir_path, folder, title) == "Error":
         return "Error"
     create_pdf(questions_pool, params, dir_path, folder, title)
 
 def doc_parsing(folder, name, params):
     questions_pool, dir_path = parse_doc(folder, name, params)
+    if (params['additional_file']):
+        _, file_extension = os.path.splitext(params['additional_file'])
+        if file_extension == ".tex":
+            questions_pool_additional, _, _ = parse_tex(folder, params['additional_file'], params)
+        elif file_extension == ".doc" or file_extension == ".docx":
+            questions_pool_additional, _ = parse_doc(folder, params['additional_file'], params)
+        for i in range(1, min(len(questions_pool), len(questions_pool_additional))):
+            for key in questions_pool[i].keys():
+                questions_pool[i][key].extend(questions_pool_additional[i][key])
     if create_texs(questions_pool, params, dir_path, folder) == "Error":
         return "Error"
     create_pdf(questions_pool, params, dir_path, folder)
