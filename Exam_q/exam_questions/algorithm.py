@@ -223,17 +223,25 @@ def create_pdf(questions_pool, params, dir_path, folder, title = []):
 
     pdf = FPDF()
     x_current = 20
-    y_current = 20
+    y_current = 5
+    max_height = 0
+    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(params['number_of_tickets'])]:
+        im = Image.open(image)
+        width, height = im.size
+        coef = width / 160
+        max_height = max(height / coef, max_height)
     pdf.add_page()
     for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(params['number_of_tickets'])]:
         im = Image.open(image)
         width, height = im.size
         coef = width / 160
-        if y_current + height / coef > 280:
-            y_current = 20
+        if y_current + max_height > 292:
+            y_current = 5
             pdf.add_page()
+        y_current += 5
         pdf.image(image, x_current, y_current, width / coef, height / coef)
-        y_current += height / coef + 5
+        y_current += max_height + 5
+        pdf.line(0, y_current, 297, y_current)
     pdf.output(os.path.join(dir_path, "tickets.pdf"), "F")
     # os.chdir('../../..')
 
