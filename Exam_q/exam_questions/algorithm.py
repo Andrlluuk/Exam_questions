@@ -173,8 +173,11 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
             for question in range(params[point]):
                 try:
                     part_choice = random.choice(keys)
+                    start = timer()
                     while len(questions_pool[part_choice][point]) == 0:
                         part_choice = random.choice(keys)
+                        if timer() - start > 1:
+                            return "Error"
                     choice = random.choice(questions_pool[part_choice][point])
                 except:
                     return "Error"
@@ -184,8 +187,8 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
                     while len(questions_pool[part_choice][point]) == 0:
                         part_choice = random.choice(keys)
                     choice = random.choice(questions_pool[part_choice][point])
-                # if timer() - start > 1:
-                #     return "Error"
+                    if timer() - start > 1:
+                        return "Error"
                 questions.append(choice)
                 weights[part_choice] += 1
         with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:

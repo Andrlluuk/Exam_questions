@@ -72,6 +72,8 @@ def params(request, filename):
                 return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
             elif form.cleaned_data['output_format'] == 'TEX':
                 return HttpResponseRedirect(f"/exam_questions/preview/tickets.tex")
+            elif form.cleaned_data['output_format'] == 'DOC':
+                return HttpResponseRedirect(f"/exam_questions/preview/tickets.docx")
     else:
         form = UploadParamsForm()
     return render(request, 'params.html', {'form': form})

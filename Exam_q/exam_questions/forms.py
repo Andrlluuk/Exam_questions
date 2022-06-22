@@ -9,6 +9,7 @@ class UploadParamsForm(forms.Form):
     CHOICES = (
         ('PDF', '.pdf'),
         ('TEX', '.tex'),
+        ('DOC', '.doc')
     )
     show = forms.BooleanField(required=False, label='Показывать сложность вопросов в билетах')
     num_questions_3_in_ticket = forms.IntegerField(label='Количество вопросов на 3 в билете')
