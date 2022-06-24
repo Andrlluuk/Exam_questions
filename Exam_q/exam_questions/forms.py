@@ -4,6 +4,9 @@ class UploadFileForm(forms.Form):
     file = forms.FileField(label='Программа')
     additional_file = forms.FileField(required=False, label='Дополнительный файл')
 
+class UploadNextForm(forms.Form):
+    pass
+
 class UploadParamsForm(forms.Form):
     num_tickets = forms.IntegerField(label='Количество билетов')
     CHOICES = (

@@ -6,15 +6,60 @@ from PIL import Image
 import subprocess
 from docx import Document
 from timeit import default_timer as timer
+from .parser import parse_tex, parse_docx, parse_txt
+from .statistics import collect_statistics
 
 meta_info = {}
+questions_pool = {}
+additional_questions_pool = {}
+
+def merging(stat1, stat2):
+    """TODO"""
+    pass
+
+def get_statistics(current_file, additional_file = None):
+    stat1 = None
+    stat2 = None
+    if additional_file == None:
+        _, file_extension = os.path.splitext(current_file)
+        if file_extension == '.tex':
+            questions_pool = parse_tex(current_file)
+        elif file_extension == '.docx' or file_extension == '.docx':
+            questions_pool = parse_docx(current_file)
+        elif file_extension == '.txt':
+            questions_pool = parse_txt(current_file)
+        else:
+            return "Error"
+        stat = collect_statistics(questions_pool)
+        return stat
+    else:
+        _, file_extension1 = os.path.splitext(current_file)
+        _, file_extension2 = os.path.splitext(additional_file)
+        if file_extension1 == '.tex':
+            questions_pool = parse_tex(current_file)
+        elif file_extension1 == '.docx' or file_extension1 == '.docx':
+            questions_pool = parse_docx(current_file)
+        elif file_extension1 == '.txt':
+            questions_pool = parse_txt(current_file)
+        else:
+            return "Error"
+        if file_extension1 == '.tex':
+            additional_questions_pool = parse_tex(additional_file)
+        elif file_extension1 == '.docx' or file_extension1 == '.docx':
+            additional_questions_pool = parse_docx(additional_file)
+        elif file_extension1 == '.txt':
+            additional_questions_pool = parse_txt(additional_file)
+        else:
+            return "Error"
+        stat = collect_statistics(questions_pool, additional_questions_pool)
+        return stat
 
 def remove_newline_signs(line):
     while (line.endswith('\n')) or (line.endswith('\\')) or (line.endswith('  ')):
         line = line[:-2]
     return line
 
-def parse_doc(folder, name, params):
+def parsess_doc(folder, name, params):
     dir_path = os.path.dirname(folder)
     filename = os.path.join(dir_path, name)
     doc = Document(filename)
@@ -78,7 +123,7 @@ def parse_doc(folder, name, params):
 
     return questions_pool, dir_path
 
-def parse_tex(folder, name, params):
+def parsess_tex(folder, name, params):
     # os.chdir(folder)
     dir_path = os.path.dirname(folder)
     filename = os.path.join(dir_path, name)

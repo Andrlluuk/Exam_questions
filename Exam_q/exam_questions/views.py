@@ -5,8 +5,12 @@ from .forms import UploadFileForm, UploadParamsForm
 import mimetypes
 from .algorithm import create_pages
 from .algorithm import doc_parsing
+from .algorithm import get_statistics
+
 import os
 
+stats = {}
+filename = ""
 def handle_file(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
         for chunk in f.chunks():
@@ -16,16 +20,29 @@ def handle_file(f):
 def index(request):
     return render(request, 'index.html')
 
+def statistics(request):
+    if request.method == 'POST':
+        return HttpResponseRedirect(f"/exam_questions/{filename}")
+    else:
+        stats['num_of_q']['Задача'] = stats['num_of_q'].pop(6)
+    return render(request, 'statistics.html', {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
+
 def load(request):
+    global stats
+    global filename
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_file(request.FILES['file'])
+            filename = request.FILES['file']
             if(form.cleaned_data['additional_file']):
+                stats = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name,
+                               "exam_questions/static/upload/" + request.FILES['additional_file'].name)
                 handle_file(request.FILES['additional_file'])
-                return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}&{request.FILES['additional_file'].name}")
+                return HttpResponseRedirect(f"/exam_questions/statistics")
             else:
-                return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}")
+                stats = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name)
+                return HttpResponseRedirect(f"/exam_questions/statistics")
     else:
         form = UploadFileForm()
     return render(request, 'load.html', {'form': form})
