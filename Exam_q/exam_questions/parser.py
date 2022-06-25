@@ -115,7 +115,7 @@ def parse_tex(file):
 
     a = 2
     b = 4
-    return questions_pool
+    return questions_pool, title
 
 def parse_docx(*params):
     """TODO"""

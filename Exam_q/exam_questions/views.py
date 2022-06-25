@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from .forms import UploadFileForm, UploadParamsForm
 import mimetypes
-from .algorithm import create_pages
+from .algorithm import build_questions_from_tex
 from .algorithm import doc_parsing
 from .algorithm import get_statistics
 
@@ -11,6 +11,8 @@ import os
 
 stats = {}
 filename = ""
+questions_pool = {}
+title = None
 def handle_file(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
         for chunk in f.chunks():
@@ -29,19 +31,21 @@ def statistics(request):
 
 def load(request):
     global stats
+    global questions_pool
     global filename
+    global title
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             handle_file(request.FILES['file'])
             filename = request.FILES['file']
             if(form.cleaned_data['additional_file']):
-                stats = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name,
+                stats, questions_pool, title = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name,
                                "exam_questions/static/upload/" + request.FILES['additional_file'].name)
                 handle_file(request.FILES['additional_file'])
                 return HttpResponseRedirect(f"/exam_questions/statistics")
             else:
-                stats = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name)
+                stats, questions_pool, title = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name)
                 return HttpResponseRedirect(f"/exam_questions/statistics")
     else:
         form = UploadFileForm()
@@ -58,16 +62,21 @@ def params(request, filename):
             _, file_extension = os.path.splitext(filename1)
             if (file_extension == '.docx'):
                 tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': '3.',
-                                                                     'label_4': '4.',
-                                                                     'label_5': '5.',
-                                                                     'label_problem': 'Задача',
-                                                                   'number_of_tickets': form.cleaned_data['num_tickets'],
-                                                                    3: form.cleaned_data['num_questions_3_in_ticket'],
-                                                                    4: form.cleaned_data['num_questions_4_in_ticket'],
-                                                                    5: form.cleaned_data['num_questions_5_in_ticket'],
-                                                                    6: form.cleaned_data['num_problems_in_ticket'],
-                                                                    'show': form.cleaned_data['show'],
-                                                                    'additional_file': filename2})
+                                                                              'label_4': '4.',
+                                                                              'label_5': '5.',
+                                                                              'label_problem': 'Задача',
+                                                                              'number_of_tickets': form.cleaned_data[
+                                                                                  'num_tickets'],
+                                                                              3: form.cleaned_data[
+                                                                                  'num_questions_3_in_ticket'],
+                                                                              4: form.cleaned_data[
+                                                                                  'num_questions_4_in_ticket'],
+                                                                              5: form.cleaned_data[
+                                                                                  'num_questions_5_in_ticket'],
+                                                                              6: form.cleaned_data[
+                                                                                  'num_problems_in_ticket'],
+                                                                              'show': form.cleaned_data['show'],
+                                                                              'additional_file': filename2})
             elif (file_extension == '.tex'):
                 tx = create_pages("exam_questions/static/upload/", filename1, {
                     'label_3': '3.',
