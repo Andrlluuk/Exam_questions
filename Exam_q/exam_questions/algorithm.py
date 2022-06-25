@@ -155,6 +155,7 @@ def parsess_tex(folder, name, params):
                     line = line[pos + len(params['label_3']) + 2:]
                 else:
                     line = line.replace(params['label_3'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha():  # True if its a letter
                         po = i  # first letter position
@@ -169,6 +170,7 @@ def parsess_tex(folder, name, params):
                     line = line[pos + len(params['label_4']) + 2:]
                 else:
                     line = line.replace(params['label_4'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha():  # True if its a letter
                         po = i  # first letter position
@@ -183,6 +185,7 @@ def parsess_tex(folder, name, params):
                     line = line[pos + len(params['label_5']) + 2:]
                 else:
                     line = line.replace(params['label_5'], "")
+                po = 0
                 for i, x in enumerate(line):
                     if x.isalpha():  # True if its a letter
                         po = i  # first letter position

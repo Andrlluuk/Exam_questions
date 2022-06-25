@@ -6,13 +6,11 @@ import mimetypes
 from .algorithm import build_questions_from_tex
 from .algorithm import doc_parsing
 from .algorithm import get_statistics
+from .models import File
 
 import os
 
-stats = {}
-filename = ""
-questions_pool = {}
-title = None
+
 def handle_file(f):
     with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
         for chunk in f.chunks():
@@ -22,18 +20,15 @@ def handle_file(f):
 def index(request):
     return render(request, 'index.html')
 
-def statistics(request):
+def statistics(request, filename):
     if request.method == 'POST':
-        return HttpResponseRedirect(f"/exam_questions/{filename}")
+        return HttpResponseRedirect(f"/exam_questions/params/{filename}")
     else:
-        stats['num_of_q']['Задача'] = stats['num_of_q'].pop(6)
+        stats = File.objects.filter(filename=filename)[0].stats
+        stats['num_of_q']['Задача'] = stats['num_of_q'].pop(6, "Задача")
     return render(request, 'statistics.html', {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
 
 def load(request):
-    global stats
-    global questions_pool
-    global filename
-    global title
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -43,10 +38,16 @@ def load(request):
                 stats, questions_pool, title = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name,
                                "exam_questions/static/upload/" + request.FILES['additional_file'].name)
                 handle_file(request.FILES['additional_file'])
-                return HttpResponseRedirect(f"/exam_questions/statistics")
+                if (len(File.objects.filter(filename=filename)) != 0 ):
+                    File.objects.filter(filename=filename)[0].delete()
+                File(filename=filename, questions_pool=questions_pool, stats=stats, title=title).save()
+                return HttpResponseRedirect(f"/exam_questions/statistics/{filename}")
             else:
                 stats, questions_pool, title = get_statistics("exam_questions/static/upload/" + request.FILES['file'].name)
-                return HttpResponseRedirect(f"/exam_questions/statistics")
+                if (len(File.objects.filter(filename=filename)) != 0 ):
+                    File.objects.filter(filename=filename)[0].delete()
+                File(filename=filename, questions_pool=questions_pool, stats=stats, title=title).save()
+                return HttpResponseRedirect(f"/exam_questions/statistics/{filename}")
     else:
         form = UploadFileForm()
     return render(request, 'load.html', {'form': form})
@@ -78,7 +79,7 @@ def params(request, filename):
                                                                               'show': form.cleaned_data['show'],
                                                                               'additional_file': filename2})
             elif (file_extension == '.tex'):
-                tx = create_pages("exam_questions/static/upload/", filename1, {
+                tx = build_questions_from_tex("exam_questions/static/upload/", filename1, {
                     'label_3': '3.',
                     'label_4': '4.',
                     'label_5': '5.',
