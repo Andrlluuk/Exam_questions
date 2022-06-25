@@ -9,4 +9,6 @@ urlpatterns = [
     path('params/<str:filename>', views.params, name='params'),
     path('preview/downloadfile/<str:filename>', views.downloadfile, name='downloadfile'),
     path('preview/<str:filename>', views.preview, name='preview'),
+    path('num_of_tickets/<str:filename>', views.params_for_tickets, name='num_of_tickets'),
+
 ]

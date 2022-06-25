@@ -7,8 +7,10 @@ class UploadFileForm(forms.Form):
 class UploadNextForm(forms.Form):
     pass
 
+class UploadTicketForm(forms.Form):
+    num_problems_in_ticket = forms.IntegerField(label='Количество билетов')
+
 class UploadParamsForm(forms.Form):
-    num_tickets = forms.IntegerField(label='Количество билетов')
     CHOICES = (
         ('PDF', '.pdf'),
         ('TEX', '.tex'),

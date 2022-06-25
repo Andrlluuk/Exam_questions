@@ -8,12 +8,85 @@ from docx import Document
 from timeit import default_timer as timer
 from .parser import parse_tex, parse_docx, parse_txt
 from .statistics import collect_statistics
+import math
+import random
 
-
-def create_questions(questions_pool):
+def get_minimal_number_of_questions(questions_pool, params):
+    """TODO(здесь ошибка)"""
+    number_of_questions = {}
     for key in questions_pool.keys():
-        print(questions_pool[key].keys())
-    pass
+        for mark in questions_pool[key].keys():
+            number_of_questions[mark] = 0
+    for key in questions_pool.keys():
+        for mark in questions_pool[key].keys():
+            if '0' in questions_pool[key][mark].keys():
+                number_of_questions[mark] += len(questions_pool[key][mark]['0'])
+
+    for key in number_of_questions.keys():
+
+        number_of_questions[key] /= params[key]
+
+    return math.ceil(max(number_of_questions.values()))
+
+
+def chunk(L, n=1, verbose=False):
+    total = len(L)
+    if n > 0:
+        size = int(total / n)
+        rest = total % n
+        ranges = []
+        if verbose:
+            msg = "{} items to be split into {} chunks of size {} with {} extra"
+            print
+            msg.format(total, n, size, rest)
+        if not size:
+            return [[x] for x in L] + [[] for i in range(n - total)]
+        if rest:
+            index = [x for x in range(0, total, size)]
+            extra = [index[i] + i for i in range(rest + 1)] + \
+                    [x + rest for x in index[rest + 1:][:n - rest]]
+            ranges = [(extra[i], extra[i + 1]) for i in range(len(extra) - 1)]
+        else:
+            index = [x for x in range(0, total + 1, size)]
+            ranges = [(index[i], index[i + 1]) for i in range(len(index) - 1)]
+        return [L[i:j] for i, j in ranges]
+
+def create_questions_tex(path, filename, params, questions_pool, tickets):
+    info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
+    dict_of_tickets = {i + 1: [] for i in range(tickets)}
+    necessarity_numbers = {i + 1: math.ceil(tickets/(i + 1)) for i in range(5)}
+    sets_of_available_tickets = {j+1: chunk([i + 1 for i in range(tickets)], j+1) for j in range(5)}
+    for chapter in questions_pool.keys():
+        for mark in questions_pool[chapter].keys():
+            for necessarity in questions_pool[chapter][mark].keys():
+                if necessarity == '0':
+                    continue
+                else:
+                    for question in questions_pool[chapter][mark][necessarity]:
+                        indexes = random.choice(sets_of_available_tickets[int(necessarity)])
+                        sets_of_available_tickets[int(necessarity)].remove(indexes)
+                        for idx in indexes:
+                            info_tickets[idx][mark] += 1
+                            dict_of_tickets[idx].append(question)
+    unnecessary_pool = {'3':[], '4':[], '5':[], '6':[]}
+    for chapter in questions_pool.keys():
+        for mark in questions_pool[chapter].keys():
+            if '0' in questions_pool[chapter][mark]:
+                unnecessary_pool[mark].extend(questions_pool[chapter][mark]['0'])
+
+    for mark in unnecessary_pool.keys():
+        curr = 1
+        full = False
+        while not full:
+            full = True
+            random.shuffle(unnecessary_pool[mark])
+            for question in unnecessary_pool[mark]:
+                if info_tickets[curr][mark] < params[mark] and question not in dict_of_tickets[curr]:
+                    full = False
+                    info_tickets[curr][mark] += 1
+                    dict_of_tickets[curr].append(question)
+                curr = (curr) % tickets + 1
+    return dict_of_tickets
 
 def get_statistics(current_file, additional_file = None):
     title = None
@@ -200,44 +273,10 @@ def parsess_tex(folder, name, params):
 
 
 def create_texs(questions_pool, params, dir_path, folder, title = []):
-    keys = []
-    for key in questions_pool.keys():
-        keys.append(key)
-    num_of_q = params[3] + params[4] + params[5] + params[6]
-    num_of_topics = len(keys)
-    if num_of_topics != 0:
-        density = num_of_q/num_of_topics
-    else:
-        density = num_of_q
-    for ticket in range(params['number_of_tickets']):
-        weights = {}
-        for key in questions_pool.keys():
-            weights[key] = 0
-        questions = []
-        points = [3, 4, 5, 6]
-        for point in points:
-            for question in range(params[point]):
-                try:
-                    part_choice = random.choice(keys)
-                    start = timer()
-                    while len(questions_pool[part_choice][point]) == 0:
-                        part_choice = random.choice(keys)
-                        if timer() - start > 1:
-                            return "Error"
-                    choice = random.choice(questions_pool[part_choice][point])
-                except:
-                    return "Error"
-                start = timer()
-                while (choice in questions) or (weights[part_choice] >= density):
-                    part_choice = random.choice(keys)
-                    while len(questions_pool[part_choice][point]) == 0:
-                        part_choice = random.choice(keys)
-                    choice = random.choice(questions_pool[part_choice][point])
-                    if timer() - start > 1:
-                        return "Error"
-                questions.append(choice)
-                weights[part_choice] += 1
-        with open(os.path.join(dir_path, f"tickets{ticket + 1}.tex"), 'w') as f:
+
+    for ticket in questions_pool.keys():
+        questions = questions_pool[ticket]
+        with open(os.path.join(dir_path, f"tickets{ticket}.tex"), 'w') as f:
             f.write('\\documentclass[preview]{standalone} \n')
             if title != []:
                 for line in title:
@@ -245,7 +284,7 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
             else:
                 f.write('\\usepackage[english, russian]{babel} \n')
             f.write('\\begin{document} \n')
-            f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket + 1))
+            f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket))
             f.write('\n')
             for i in range(len(questions)):
                 line = remove_newline_signs(questions[i])
@@ -258,11 +297,11 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
             f.write('\\end{document}')
         os.chdir(folder)
         # os.system(f"pdflatex tickets{ticket + 1}.tex")
-        subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket + 1}.tex"])
+        subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket}.tex"])
         os.chdir('../../..')
 
-def create_pdf(questions_pool, params, dir_path, folder, title = []):
-    for ticket in range(params['number_of_tickets']):
+def create_pdf(questions_pool, params, tickets, dir_path, folder, title = []):
+    for ticket in range(tickets):
         file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
         for fil in file:
             fil.save(os.path.join(dir_path, f'tickets{ticket + 1}.png'), 'PNG')
@@ -271,13 +310,13 @@ def create_pdf(questions_pool, params, dir_path, folder, title = []):
     x_current = 20
     y_current = 5
     max_height = 0
-    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(params['number_of_tickets'])]:
+    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(tickets)]:
         im = Image.open(image)
         width, height = im.size
         coef = width / 160
         max_height = max(height / coef, max_height)
     pdf.add_page()
-    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(params['number_of_tickets'])]:
+    for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(tickets)]:
         im = Image.open(image)
         width, height = im.size
         coef = width / 160

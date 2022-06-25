@@ -113,8 +113,6 @@ def parse_tex(file):
                 questions_pool[chapter_name][6][frequency] = []
                 questions_pool[chapter_name][6][frequency].append(question)
 
-    a = 2
-    b = 4
     return questions_pool, title
 
 def parse_docx(*params):

@@ -1,12 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponse
 from django.shortcuts import render
-from .forms import UploadFileForm, UploadParamsForm
+from .forms import UploadFileForm, UploadParamsForm, UploadTicketForm
 import mimetypes
 from .algorithm import build_questions_from_tex
-from .algorithm import doc_parsing
+from .algorithm import doc_parsing, create_pdf, create_texs
 from .algorithm import get_statistics
 from .models import File
+from .algorithm import get_minimal_number_of_questions, create_questions_tex
 
 import os
 
@@ -25,8 +26,50 @@ def statistics(request, filename):
         return HttpResponseRedirect(f"/exam_questions/params/{filename}")
     else:
         stats = File.objects.filter(filename=filename)[0].stats
-        stats['num_of_q']['Задача'] = stats['num_of_q'].pop(6, "Задача")
+        stats['num_of_q']['Задача'] = stats['num_of_q'].pop('6')
     return render(request, 'statistics.html', {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
+
+def params_for_tickets(request, filename):
+    """TODO(docx)"""
+    if request.method == 'POST':
+        form = UploadTicketForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = File.objects.filter(filename=filename)[0]
+            obj.tickets = form.cleaned_data['num_problems_in_ticket']
+            obj.save()
+            obj = File.objects.filter(filename=filename)[0]
+            filename = obj.filename
+
+            _, file_extension = os.path.splitext(filename)
+            if (file_extension == '.docx'):
+                tx = doc_parsing("exam_questions/static/upload/", filename, {
+                    'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
+                    'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
+                    'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
+                    'label_problem': str(request.FILES['label_problem']) if form.cleaned_data[
+                        'label_problem'] else 'Задача',
+                    'number_of_tickets': form.cleaned_data['num_tickets'],
+                    3: form.cleaned_data['num_questions_3_in_ticket'],
+                    4: form.cleaned_data['num_questions_4_in_ticket'],
+                    5: form.cleaned_data['num_questions_5_in_ticket'],
+                    6: form.cleaned_data['num_problems_in_ticket'],
+                    'show': form.cleaned_data['show']})
+            else:
+                questions = create_questions_tex("exam_questions/static/upload/", filename, obj.params,
+                                                 obj.questions_pool, obj.tickets)
+                create_texs(questions, obj.params, "exam_questions/static/upload/", "exam_questions/static/upload/")
+                create_pdf(questions, obj.params, obj.tickets, "exam_questions/static/upload/", "exam_questions/static/upload/")
+            if questions == "Error":
+                return HttpResponse("Error")
+            if obj.output_format == 'PDF':
+                return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
+            elif obj.output_format == 'TEX':
+                return HttpResponseRedirect(f"/exam_questions/preview/tickets.tex")
+    else:
+        form = UploadTicketForm()
+        num = File.objects.filter(filename=filename)[0].tickets
+        return render(request, 'ticket_suggestion.html', {'form': form, 'num_of_tickets': num})
+
 
 def load(request):
     if request.method == 'POST':
@@ -56,51 +99,23 @@ def params(request, filename):
     if request.method == 'POST':
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
-            filename1 = filename.split("&")[0]
-            filename2 = ""
-            if len(filename.split("&")) == 2:
-                filename2 = filename.split("&")[1]
-            _, file_extension = os.path.splitext(filename1)
-            if (file_extension == '.docx'):
-                tx = doc_parsing("exam_questions/static/upload/", filename1, {'label_3': '3.',
-                                                                              'label_4': '4.',
-                                                                              'label_5': '5.',
-                                                                              'label_problem': 'Задача',
-                                                                              'number_of_tickets': form.cleaned_data[
-                                                                                  'num_tickets'],
-                                                                              3: form.cleaned_data[
-                                                                                  'num_questions_3_in_ticket'],
-                                                                              4: form.cleaned_data[
-                                                                                  'num_questions_4_in_ticket'],
-                                                                              5: form.cleaned_data[
-                                                                                  'num_questions_5_in_ticket'],
-                                                                              6: form.cleaned_data[
-                                                                                  'num_problems_in_ticket'],
-                                                                              'show': form.cleaned_data['show'],
-                                                                              'additional_file': filename2})
-            elif (file_extension == '.tex'):
-                tx = build_questions_from_tex("exam_questions/static/upload/", filename1, {
-                    'label_3': '3.',
-                    'label_4': '4.',
-                    'label_5': '5.',
-                    'label_problem': 'Задача',
-                    'number_of_tickets': form.cleaned_data['num_tickets'],
-                    3: form.cleaned_data['num_questions_3_in_ticket'],
-                    4: form.cleaned_data['num_questions_4_in_ticket'],
-                    5: form.cleaned_data['num_questions_5_in_ticket'],
-                    6: form.cleaned_data['num_problems_in_ticket'],
-                    'show': form.cleaned_data['show'],
-                    'additional_file': filename2})
-            else:
-                return ("undefined format")
-            if tx == "Error":
-                return HttpResponse("Error")
-            if form.cleaned_data['output_format'] == 'PDF':
-                return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
-            elif form.cleaned_data['output_format'] == 'TEX':
-                return HttpResponseRedirect(f"/exam_questions/preview/tickets.tex")
-            elif form.cleaned_data['output_format'] == 'DOC':
-                return HttpResponseRedirect(f"/exam_questions/preview/tickets.docx")
+            questions_pool = File.objects.filter(filename=filename)[0].questions_pool
+            info = {'3': form.cleaned_data['num_questions_3_in_ticket'],
+                                                              '4': form.cleaned_data[
+                                                                  'num_questions_4_in_ticket'],
+                                                              '5': form.cleaned_data[
+                                                                  'num_questions_5_in_ticket'],
+                                                              '6': form.cleaned_data[
+                                                                  'num_problems_in_ticket'],
+                                                              'show': form.cleaned_data['show'],
+                                                              'output_format': form.cleaned_data['output_format']}
+            num_of_tickets = get_minimal_number_of_questions(questions_pool, info)
+            obj = File.objects.filter(filename=filename)[0]
+            obj.tickets = num_of_tickets
+            obj.params = info
+            obj.save()
+            return HttpResponseRedirect(f"/exam_questions/num_of_tickets/{filename}")
+
     else:
         form = UploadParamsForm()
     return render(request, 'params.html', {'form': form})
