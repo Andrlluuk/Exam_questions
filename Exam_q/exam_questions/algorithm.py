@@ -11,7 +11,7 @@ from .statistics import collect_statistics
 import math
 import random
 
-def get_minimal_number_of_questions(questions_pool, params):
+def get_minimal_number_of_questions(questions_pool, params, stats):
     """TODO(здесь ошибка)"""
     number_of_questions = {}
     for key in questions_pool.keys():
@@ -24,7 +24,7 @@ def get_minimal_number_of_questions(questions_pool, params):
 
     for key in number_of_questions.keys():
 
-        number_of_questions[key] /= params[key]
+        number_of_questions[key] /= (params[key] - stats['density'][key])
 
     return math.ceil(max(number_of_questions.values()))
 
@@ -114,15 +114,15 @@ def get_statistics(current_file, additional_file = None):
         else:
             return "Error"
         if file_extension1 == '.tex':
-            additional_questions_pool = parse_tex(additional_file)
+            additional_questions_pool, _ = parse_tex(additional_file)
         elif file_extension1 == '.docx' or file_extension1 == '.docx':
             additional_questions_pool = parse_docx(additional_file)
         elif file_extension1 == '.txt':
             additional_questions_pool = parse_txt(additional_file)
         else:
             return "Error"
-        stat = collect_statistics(questions_pool, additional_questions_pool)
         pool = {**questions_pool, **additional_questions_pool}
+        stat = collect_statistics(pool)
         return stat, pool, title
 
 def remove_newline_signs(line):
@@ -273,7 +273,6 @@ def parsess_tex(folder, name, params):
 
 
 def create_texs(questions_pool, params, dir_path, folder, title = []):
-
     for ticket in questions_pool.keys():
         questions = questions_pool[ticket]
         with open(os.path.join(dir_path, f"tickets{ticket}.tex"), 'w') as f:
@@ -337,7 +336,7 @@ def build_questions_from_tex(folder, name, params):
         if file_extension == ".tex":
             questions_pool_additional, _, _ = parse_tex(folder, params['additional_file'], params)
         elif file_extension == ".doc" or file_extension == ".docx":
-            questions_pool_additional, _ = parse_doc(folder, params['additional_file'], params)
+            questions_pool_additional, _ = parse_docx(folder, params['additional_file'], params)
         for i in range(1, min(len(questions_pool), len(questions_pool_additional))):
             for key in questions_pool[i].keys():
                 questions_pool[i][key].extend(questions_pool_additional[i][key])
@@ -346,13 +345,13 @@ def build_questions_from_tex(folder, name, params):
     create_pdf(questions_pool, params, dir_path, folder, title)
 
 def doc_parsing(folder, name, params):
-    questions_pool, dir_path = parse_doc(folder, name, params)
+    questions_pool, dir_path = parse_docx(folder, name, params)
     if (params['additional_file']):
         _, file_extension = os.path.splitext(params['additional_file'])
         if file_extension == ".tex":
             questions_pool_additional, _, _ = parse_tex(folder, params['additional_file'], params)
         elif file_extension == ".doc" or file_extension == ".docx":
-            questions_pool_additional, _ = parse_doc(folder, params['additional_file'], params)
+            questions_pool_additional, _ = parse_docx(folder, params['additional_file'], params)
         for i in range(1, min(len(questions_pool), len(questions_pool_additional))):
             for key in questions_pool[i].keys():
                 questions_pool[i][key].extend(questions_pool_additional[i][key])

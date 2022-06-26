@@ -109,7 +109,8 @@ def params(request, filename):
                                                                   'num_problems_in_ticket'],
                                                               'show': form.cleaned_data['show'],
                                                               'output_format': form.cleaned_data['output_format']}
-            num_of_tickets = get_minimal_number_of_questions(questions_pool, info)
+            num_of_tickets = get_minimal_number_of_questions(questions_pool, info,
+                                                             File.objects.filter(filename=filename)[0].stats)
             obj = File.objects.filter(filename=filename)[0]
             obj.tickets = num_of_tickets
             obj.params = info
