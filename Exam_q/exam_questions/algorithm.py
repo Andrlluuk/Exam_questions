@@ -34,7 +34,6 @@ def chunk(L, n=1, verbose=False):
     if n > 0:
         size = int(total / n)
         rest = total % n
-        ranges = []
         if verbose:
             msg = "{} items to be split into {} chunks of size {} with {} extra"
             print
