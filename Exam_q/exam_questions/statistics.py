@@ -17,7 +17,7 @@ def collect_statistics(question_pool, additional_questions_pool = None):
             for difficulty in range(1, 6):
                 if difficulty in question_pool[key][mark].keys():
                     quest_density[mark] += len(question_pool[key][mark][difficulty])/difficulty
-                    result += f"Частоты {str(difficulty)} - {str(len(question_pool[key][mark][difficulty]))}\n"
+                    result += f" В каждый {str(difficulty)} билет - {str(len(question_pool[key][mark][difficulty]))}\n"
             if result != "":
                 table[new_key].append(result)
             else:

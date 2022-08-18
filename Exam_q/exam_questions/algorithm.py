@@ -12,7 +12,6 @@ import math
 import random
 
 def get_minimal_number_of_questions(questions_pool, params, stats):
-    """TODO(здесь ошибка)"""
     number_of_questions = {}
     for key in questions_pool.keys():
         for mark in questions_pool[key].keys():
@@ -23,7 +22,8 @@ def get_minimal_number_of_questions(questions_pool, params, stats):
                 number_of_questions[mark] += len(questions_pool[key][mark]['0'])
 
     for key in number_of_questions.keys():
-
+        if params[key] - stats['density'][key] == 0:
+            continue
         number_of_questions[key] /= (params[key] - stats['density'][key])
 
     return math.ceil(max(number_of_questions.values()))
@@ -50,6 +50,14 @@ def chunk(L, n=1, verbose=False):
             ranges = [(index[i], index[i + 1]) for i in range(len(index) - 1)]
         return [L[i:j] for i, j in ranges]
 
+def indexes_ok(indexes, params, info_tickets, mark):
+    for idx in indexes:
+        if (info_tickets[idx][mark] + 1 > params[mark]):
+            return False
+
+    return True
+
+
 def create_questions_tex(path, filename, params, questions_pool, tickets):
     info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
     dict_of_tickets = {i + 1: [] for i in range(tickets)}
@@ -63,6 +71,8 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                 else:
                     for question in questions_pool[chapter][mark][necessarity]:
                         indexes = random.choice(sets_of_available_tickets[int(necessarity)])
+                        while not indexes_ok(indexes, params, info_tickets, mark):
+                            indexes = random.choice(sets_of_available_tickets[int(necessarity)])
                         sets_of_available_tickets[int(necessarity)].remove(indexes)
                         for idx in indexes:
                             info_tickets[idx][mark] += 1
@@ -281,6 +291,7 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
                     f.write('%s\n' % line)
             else:
                 f.write('\\usepackage[english, russian]{babel} \n')
+            f.write('\\pageclass{empty} \n')
             f.write('\\begin{document} \n')
             f.write('\\begin{center} {\\Large Билет №%s} \\end{center} \n' % str(ticket))
             f.write('\n')
@@ -311,13 +322,13 @@ def create_pdf(questions_pool, params, tickets, dir_path, folder, title = []):
     for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(tickets)]:
         im = Image.open(image)
         width, height = im.size
-        coef = width / 160
+        coef = width / 140
         max_height = max(height / coef, max_height)
     pdf.add_page()
     for image in [os.path.join(dir_path, f'tickets{ticket + 1}.png') for ticket in range(tickets)]:
         im = Image.open(image)
         width, height = im.size
-        coef = width / 160
+        coef = width / 140
         if y_current + max_height > 292:
             y_current = 5
             pdf.add_page()
