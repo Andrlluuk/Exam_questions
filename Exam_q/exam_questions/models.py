@@ -2,6 +2,7 @@ from django.db import models
 from jsonfield import JSONField
 
 class File(models.Model):
+    uuid = models.CharField(max_length=200, default = "none")
     filename = models.CharField(max_length=200)
     title = models.TextField()
     stats = JSONField()

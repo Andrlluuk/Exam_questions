@@ -14,8 +14,7 @@
 </div>
 
 <div class="container">
-
-    {% with 'upload'|add:'/'|add:"tickets.pdf" as image_static %}
+    {% with 'upload'|add:'/'|add:"{{ uuid }}"|add:'/'|add:"tickets.pdf" as image_static %}
       <a href={% static image_static%}>Ссылка для предварительного просмотра(в формате PDF)</a>
     {% endwith %}
     </div>

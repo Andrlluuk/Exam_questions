@@ -307,7 +307,7 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
         os.chdir(folder)
         # os.system(f"pdflatex tickets{ticket + 1}.tex")
         subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket}.tex"])
-        os.chdir('../../..')
+        os.chdir('../../../..')
 
 def create_pdf(questions_pool, params, tickets, dir_path, folder, title = []):
     for ticket in range(tickets):
