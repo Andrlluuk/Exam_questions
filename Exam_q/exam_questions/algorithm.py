@@ -59,6 +59,7 @@ def indexes_ok(indexes, params, info_tickets, mark):
 
 
 def create_questions_tex(path, filename, params, questions_pool, tickets):
+    """TODO: change"""
     info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
     dict_of_tickets = {i + 1: [] for i in range(tickets)}
     necessarity_numbers = {i + 1: math.ceil(tickets/(i + 1)) for i in range(5)}
@@ -71,8 +72,8 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                 else:
                     for question in questions_pool[chapter][mark][necessarity]:
                         indexes = random.choice(sets_of_available_tickets[int(necessarity)])
-                        while not indexes_ok(indexes, params, info_tickets, mark):
-                            indexes = random.choice(sets_of_available_tickets[int(necessarity)])
+                       # while not indexes_ok(indexes, params, info_tickets, mark):
+                        #    indexes = random.choice(sets_of_available_tickets[int(necessarity)])
                         sets_of_available_tickets[int(necessarity)].remove(indexes)
                         for idx in indexes:
                             info_tickets[idx][mark] += 1
@@ -281,7 +282,7 @@ def parsess_tex(folder, name, params):
     return questions_pool, title
 
 
-def create_texs(questions_pool, params, dir_path, folder, title = []):
+def create_texs(questions_pool, params, dir_path, title = []):
     for ticket in questions_pool.keys():
         questions = questions_pool[ticket]
         with open(os.path.join(dir_path, f"tickets{ticket}.tex"), 'w') as f:
@@ -304,12 +305,12 @@ def create_texs(questions_pool, params, dir_path, folder, title = []):
                 f.write('\\\\\n')
                 f.write('\n')
             f.write('\\end{document}')
-        os.chdir(folder)
+        os.chdir(dir_path)
         # os.system(f"pdflatex tickets{ticket + 1}.tex")
         subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket}.tex"])
         os.chdir('../../../..')
 
-def create_pdf(questions_pool, params, tickets, dir_path, folder, title = []):
+def create_pdf(tickets, dir_path, title = []):
     for ticket in range(tickets):
         file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
         for fil in file:

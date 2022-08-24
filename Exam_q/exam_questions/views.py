@@ -17,7 +17,7 @@ import os
 def handle_file(f, uuid):
     if not os.path.exists(f'exam_questions/static/upload/{uuid}'):
         os.mkdir(f'exam_questions/static/upload/{uuid}')
-    with open(f'exam_questions/static/upload/{uuid}/'+f.name, 'wb+') as destination:
+    with open(f'exam_questions/static/upload/{uuid}/' + f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
@@ -28,13 +28,16 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+
 def statistics(request, uuid, filename):
     if request.method == 'POST':
         return HttpResponseRedirect(f"/exam_questions/{uuid}/params/{filename}")
     else:
         stats = File.objects.filter(filename=filename)[0].stats
         stats['num_of_q']['Задача'] = stats['num_of_q'].pop('6')
-    return render(request, 'statistics.html', {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
+    return render(request, 'statistics.html',
+                  {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
+
 
 def params_for_tickets(request, uuid, filename):
     """TODO(docx)"""
@@ -64,8 +67,8 @@ def params_for_tickets(request, uuid, filename):
             else:
                 questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, obj.params,
                                                  obj.questions_pool, obj.tickets)
-                create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/", f"exam_questions/static/upload/{uuid}/")
-                create_pdf(questions, obj.params, obj.tickets, f"exam_questions/static/upload/{uuid}/", f"exam_questions/static/upload/{uuid}/")
+                create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(obj.tickets, f"exam_questions/static/upload/{uuid}/")
             if questions == "Error":
                 return HttpResponse("Error")
             if obj.output_format == 'PDF':
@@ -84,19 +87,22 @@ def load(request, uuid):
         if form.is_valid():
             handle_file(request.FILES['file'], uuid)
             filename = request.FILES['file']
-            if(form.cleaned_data['additional_file']):
-                stats, questions_pool, title = get_statistics(f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name,
-                               "exam_questions/static/upload/" + request.FILES['additional_file'].name)
+            if (form.cleaned_data['additional_file']):
+                stats, questions_pool, title = get_statistics(
+                    f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name,
+                    "exam_questions/static/upload/" + request.FILES['additional_file'].name)
                 handle_file(request.FILES['additional_file'], uuid)
                 File(filename=filename, questions_pool=questions_pool, stats=stats, title=title, uuid=uuid).save()
                 return HttpResponseRedirect(f"/exam_questions/{uuid}/statistics/{filename}")
             else:
-                stats, questions_pool, title = get_statistics(f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name)
+                stats, questions_pool, title = get_statistics(
+                    f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name)
                 File(filename=filename, questions_pool=questions_pool, stats=stats, title=title, uuid=uuid).save()
                 return HttpResponseRedirect(f"/exam_questions/{uuid}/statistics/{filename}")
     else:
         form = UploadFileForm()
     return render(request, 'load.html', {'form': form})
+
 
 def params(request, uuid, filename):
     if request.method == 'POST':
@@ -104,14 +110,14 @@ def params(request, uuid, filename):
         if form.is_valid():
             questions_pool = File.objects.filter(uuid=uuid)[0].questions_pool
             info = {'3': form.cleaned_data['num_questions_3_in_ticket'],
-                                                              '4': form.cleaned_data[
-                                                                  'num_questions_4_in_ticket'],
-                                                              '5': form.cleaned_data[
-                                                                  'num_questions_5_in_ticket'],
-                                                              '6': form.cleaned_data[
-                                                                  'num_problems_in_ticket'],
-                                                              'show': form.cleaned_data['show'],
-                                                              'output_format': form.cleaned_data['output_format']}
+                    '4': form.cleaned_data[
+                        'num_questions_4_in_ticket'],
+                    '5': form.cleaned_data[
+                        'num_questions_5_in_ticket'],
+                    '6': form.cleaned_data[
+                        'num_problems_in_ticket'],
+                    'show': form.cleaned_data['show'],
+                    'output_format': form.cleaned_data['output_format']}
             num_of_tickets = get_minimal_number_of_questions(questions_pool, info,
                                                              File.objects.filter(uuid=uuid)[0].stats)
             obj = File.objects.filter(uuid=uuid)[0]
@@ -124,6 +130,7 @@ def params(request, uuid, filename):
         form = UploadParamsForm()
     return render(request, 'params.html', {'form': form})
 
+
 def downloadfile(request, uuid, filename):
     if filename != '':
         path = open(f'exam_questions/static/upload/{filename}', 'rb')
@@ -134,8 +141,7 @@ def downloadfile(request, uuid, filename):
     else:
         return HttpResponse("No such file")
 
+
 def preview(request, uuid, filename):
     # if request.method == 'POST':
-    return render(request, 'preview.html', {'filename': filename, 'uuid':uuid})
-
-
+    return render(request, 'preview.html', {'filename': filename, 'uuid': f"upload/{uuid}/tickets.pdf"})
