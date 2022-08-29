@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .forms import UploadFileForm, UploadParamsForm, UploadTicketForm
 import mimetypes
 from .algorithm import build_questions_from_tex
-from .algorithm import doc_parsing, create_pdf, create_texs
+from .algorithm import doc_parsing, create_pdf, create_texs, create_folder
 from .algorithm import get_statistics
 from .models import File
 from .algorithm import get_minimal_number_of_questions, create_questions_tex
@@ -69,6 +69,8 @@ def params_for_tickets(request, uuid, filename):
                                                  obj.questions_pool, obj.tickets)
                 create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/")
                 create_pdf(obj.tickets, f"exam_questions/static/upload/{uuid}/")
+                if (obj.params['pdf_folder'] == True):
+                    create_folder(obj.tickets, f"exam_questions/static/upload/{uuid}/")
             if questions == "Error":
                 return HttpResponse("Error")
             if obj.output_format == 'PDF':
@@ -117,7 +119,8 @@ def params(request, uuid, filename):
                     '6': form.cleaned_data[
                         'num_problems_in_ticket'],
                     'show': form.cleaned_data['show'],
-                    'output_format': form.cleaned_data['output_format']}
+                    'output_format': form.cleaned_data['output_format'],
+                    'pdf_folder': form.cleaned_data['pdf_folder']}
             num_of_tickets = get_minimal_number_of_questions(questions_pool, info,
                                                              File.objects.filter(uuid=uuid)[0].stats)
             obj = File.objects.filter(uuid=uuid)[0]
@@ -133,11 +136,16 @@ def params(request, uuid, filename):
 
 def downloadfile(request, uuid, filename):
     if filename != '':
-        path = open(f'exam_questions/static/upload/{uuid}/{filename}', 'rb')
-        mime_type, _ = mimetypes.guess_type(f'/exam_questions/static/upload/{uuid}/{filename}')
-        response = HttpResponse(path, content_type='pdf')
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
-        return response
+        if (File.objects.filter(uuid=uuid)[0].params['pdf_folder'] == False):
+            path = open(f'exam_questions/static/upload/{uuid}/{filename}', 'rb')
+            response = HttpResponse(path, content_type='pdf')
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
+        else:
+            path = open(f'exam_questions/static/upload/{uuid}/ticket_folder.zip', 'rb')
+            response = HttpResponse(path, content_type="application/x-zip-compressed")
+            response['Content-Disposition'] = "attachment; filename=ticket-folder"
+            return response
     else:
         return HttpResponse("No such file")
 

@@ -10,6 +10,7 @@ from .parser import parse_tex, parse_docx, parse_txt
 from .statistics import collect_statistics
 import math
 import random
+import shutil
 
 def get_minimal_number_of_questions(questions_pool, params, stats):
     number_of_questions = {}
@@ -369,3 +370,29 @@ def doc_parsing(folder, name, params):
     if create_texs(questions_pool, params, dir_path, folder) == "Error":
         return "Error"
     create_pdf(questions_pool, params, dir_path, folder)
+
+
+def create_folder(tickets, dir_path, title = []):
+    os.mkdir(os.path.join(dir_path, "ticket_folder"))
+    for ticket in range(tickets):
+        file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
+        for fil in file:
+            fil.save(os.path.join(dir_path, f'tickets{ticket + 1}.png'), 'PNG')
+
+    for ticket in range(tickets):
+        pdf = FPDF()
+        x_current = 20
+        y_current = 5
+        max_height = 0
+        image = os.path.join(dir_path, f'tickets{ticket + 1}.png')
+        im = Image.open(image)
+        width, height = im.size
+        coef = width / 140
+        max_height = max(height / coef, max_height)
+        pdf.add_page()
+        pdf.image(image, x_current, y_current, width / coef, height / coef)
+        y_current += max_height
+        y_current += 5
+        pdf.line(0, y_current, 297, y_current)
+        pdf.output(os.path.join(dir_path, f"ticket_folder/ticket_{ticket + 1}.pdf"), "F")
+    shutil.make_archive(os.path.join(dir_path, f"ticket_folder"), 'zip', os.path.join(dir_path, f"ticket_folder"))

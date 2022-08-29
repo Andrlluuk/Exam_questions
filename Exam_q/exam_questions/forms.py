@@ -22,3 +22,4 @@ class UploadParamsForm(forms.Form):
     num_questions_5_in_ticket = forms.IntegerField(label='Количество вопросов на 5 в билете')
     num_problems_in_ticket = forms.IntegerField(label='Количество задач в билете')
     output_format = forms.ChoiceField(choices=CHOICES, label='Выходной формат файла')
+    pdf_folder = forms.BooleanField(required=False, label='Сделать каждый билет отдельным pdf-файлом')
