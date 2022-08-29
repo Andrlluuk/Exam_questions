@@ -126,7 +126,7 @@ def params(request, uuid, filename):
 
 def downloadfile(request, uuid, filename):
     if filename != '':
-        path = open(f'exam_questions/static/upload/{filename}', 'rb')
+        path = open(f'exam_questions/static/upload/{uuid}/{filename}', 'rb')
         mime_type, _ = mimetypes.guess_type(f'/exam_questions/static/upload/{uuid}/{filename}')
         response = HttpResponse(path, content_type='pdf')
         response['Content-Disposition'] = "attachment; filename=%s" % filename
