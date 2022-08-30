@@ -106,7 +106,7 @@ def get_statistics(current_file, additional_file = None):
         if file_extension == '.tex':
             questions_pool, title = parse_tex(current_file)
         elif file_extension == '.docx' or file_extension == '.docx':
-            questions_pool = parse_docx(current_file)
+            questions_pool, title = parse_docx(current_file)
         elif file_extension == '.txt':
             questions_pool = parse_txt(current_file)
         else:

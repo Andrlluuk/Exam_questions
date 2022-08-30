@@ -52,18 +52,12 @@ def params_for_tickets(request, uuid, filename):
 
             _, file_extension = os.path.splitext(filename)
             if (file_extension == '.docx'):
-                tx = doc_parsing("exam_questions/static/upload/", filename, {
-                    'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
-                    'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
-                    'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
-                    'label_problem': str(request.FILES['label_problem']) if form.cleaned_data[
-                        'label_problem'] else 'Задача',
-                    'number_of_tickets': form.cleaned_data['num_tickets'],
-                    3: form.cleaned_data['num_questions_3_in_ticket'],
-                    4: form.cleaned_data['num_questions_4_in_ticket'],
-                    5: form.cleaned_data['num_questions_5_in_ticket'],
-                    6: form.cleaned_data['num_problems_in_ticket'],
-                    'show': form.cleaned_data['show']})
+                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, obj.params,
+                                                 obj.questions_pool, obj.tickets)
+                create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(obj.tickets, f"exam_questions/static/upload/{uuid}/")
+                if (obj.params['pdf_folder'] == True):
+                    create_folder(obj.tickets, f"exam_questions/static/upload/{uuid}/")
             else:
                 questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, obj.params,
                                                  obj.questions_pool, obj.tickets)
