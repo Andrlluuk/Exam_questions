@@ -10,6 +10,7 @@ from .parser import parse_tex, parse_docx, parse_txt
 from .statistics import collect_statistics
 import math
 import random
+import shutil
 
 def get_minimal_number_of_questions(questions_pool, params, stats):
     number_of_questions = {}
@@ -62,8 +63,6 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
     """TODO: change"""
     info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
     dict_of_tickets = {i + 1: [] for i in range(tickets)}
-    necessarity_numbers = {i + 1: math.ceil(tickets/(i + 1)) for i in range(5)}
-    sets_of_available_tickets = {j+1: chunk([i + 1 for i in range(tickets)], j+1) for j in range(5)}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
             for necessarity in questions_pool[chapter][mark].keys():
@@ -71,13 +70,11 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                     continue
                 else:
                     for question in questions_pool[chapter][mark][necessarity]:
-                        indexes = random.choice(sets_of_available_tickets[int(necessarity)])
-                       # while not indexes_ok(indexes, params, info_tickets, mark):
-                        #    indexes = random.choice(sets_of_available_tickets[int(necessarity)])
-                        sets_of_available_tickets[int(necessarity)].remove(indexes)
+                        possible = set([i for i in range(tickets) if params[mark] - info_tickets[i + 1][mark] > 0])
+                        indexes = random.sample(possible, math.floor(tickets/int(necessarity)))
                         for idx in indexes:
-                            info_tickets[idx][mark] += 1
-                            dict_of_tickets[idx].append(question)
+                            info_tickets[idx + 1][mark] += 1
+                            dict_of_tickets[idx + 1].append(question)
     unnecessary_pool = {'3':[], '4':[], '5':[], '6':[]}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
@@ -105,9 +102,9 @@ def get_statistics(current_file, additional_file = None):
         if file_extension == '.tex':
             questions_pool, title = parse_tex(current_file)
         elif file_extension == '.docx' or file_extension == '.docx':
-            questions_pool = parse_docx(current_file)
+            questions_pool, title = parse_docx(current_file)
         elif file_extension == '.txt':
-            questions_pool = parse_txt(current_file)
+            questions_pool, title = parse_txt(current_file)
         else:
             return "Error"
         stat = collect_statistics(questions_pool)
@@ -369,3 +366,29 @@ def doc_parsing(folder, name, params):
     if create_texs(questions_pool, params, dir_path, folder) == "Error":
         return "Error"
     create_pdf(questions_pool, params, dir_path, folder)
+
+
+def create_folder(tickets, dir_path, title = []):
+    os.mkdir(os.path.join(dir_path, "ticket_folder"))
+    for ticket in range(tickets):
+        file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
+        for fil in file:
+            fil.save(os.path.join(dir_path, f'tickets{ticket + 1}.png'), 'PNG')
+
+    for ticket in range(tickets):
+        pdf = FPDF()
+        x_current = 20
+        y_current = 5
+        max_height = 0
+        image = os.path.join(dir_path, f'tickets{ticket + 1}.png')
+        im = Image.open(image)
+        width, height = im.size
+        coef = width / 140
+        max_height = max(height / coef, max_height)
+        pdf.add_page()
+        pdf.image(image, x_current, y_current, width / coef, height / coef)
+        y_current += max_height
+        y_current += 5
+        pdf.line(0, y_current, 297, y_current)
+        pdf.output(os.path.join(dir_path, f"ticket_folder/ticket_{ticket + 1}.pdf"), "F")
+    shutil.make_archive(os.path.join(dir_path, f"ticket_folder"), 'zip', os.path.join(dir_path, f"ticket_folder"))
