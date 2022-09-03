@@ -63,8 +63,6 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
     """TODO: change"""
     info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
     dict_of_tickets = {i + 1: [] for i in range(tickets)}
-    necessarity_numbers = {i + 1: math.ceil(tickets/(i + 1)) for i in range(5)}
-    sets_of_available_tickets = {j+1: chunk([i + 1 for i in range(tickets)], j+1) for j in range(5)}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
             for necessarity in questions_pool[chapter][mark].keys():
@@ -72,13 +70,11 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                     continue
                 else:
                     for question in questions_pool[chapter][mark][necessarity]:
-                        indexes = random.choice(sets_of_available_tickets[int(necessarity)])
-                       # while not indexes_ok(indexes, params, info_tickets, mark):
-                        #    indexes = random.choice(sets_of_available_tickets[int(necessarity)])
-                        sets_of_available_tickets[int(necessarity)].remove(indexes)
+                        possible = set([i for i in range(tickets) if params[mark] - info_tickets[i + 1][mark] > 0])
+                        indexes = random.sample(possible, math.floor(tickets/int(necessarity)))
                         for idx in indexes:
-                            info_tickets[idx][mark] += 1
-                            dict_of_tickets[idx].append(question)
+                            info_tickets[idx + 1][mark] += 1
+                            dict_of_tickets[idx + 1].append(question)
     unnecessary_pool = {'3':[], '4':[], '5':[], '6':[]}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
@@ -108,7 +104,7 @@ def get_statistics(current_file, additional_file = None):
         elif file_extension == '.docx' or file_extension == '.docx':
             questions_pool, title = parse_docx(current_file)
         elif file_extension == '.txt':
-            questions_pool = parse_txt(current_file)
+            questions_pool, title = parse_txt(current_file)
         else:
             return "Error"
         stat = collect_statistics(questions_pool)

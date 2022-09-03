@@ -33,14 +33,13 @@ def statistics(request, uuid, filename):
     if request.method == 'POST':
         return HttpResponseRedirect(f"/exam_questions/{uuid}/params/{filename}")
     else:
-        stats = File.objects.filter(filename=filename)[0].stats
+        stats = File.objects.filter(uuid=uuid)[0].stats
         stats['num_of_q']['Задача'] = stats['num_of_q'].pop('6')
     return render(request, 'statistics.html',
                   {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
 
 
 def params_for_tickets(request, uuid, filename):
-    """TODO(docx)"""
     if request.method == 'POST':
         form = UploadTicketForm(request.POST, request.FILES)
         if form.is_valid():
