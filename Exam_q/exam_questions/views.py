@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from .forms import UploadFileForm, UploadParamsForm, UploadTicketForm
@@ -8,11 +8,36 @@ from .algorithm import doc_parsing, create_pdf, create_texs, create_folder
 from .algorithm import get_statistics
 from .models import File
 from .algorithm import get_minimal_number_of_questions, create_questions_tex
+from celery.result import AsyncResult
+from django.views.decorators.csrf import csrf_exempt
 
 import uuid
 
 import os
+from tasks.sample_task import create_task
 
+
+def home(request):
+    return render(request, "home.html")
+
+@csrf_exempt
+def run_task(request):
+    if request.POST:
+        task_type = request.POST.get("type")
+        print("aaaaaaaaaaaaaa")
+        print(task_type)
+        task = create_task.delay(int(task_type))
+        return JsonResponse({"task_id": task.id}, status=202)
+
+@csrf_exempt
+def get_status(request, task_id):
+    task_result = AsyncResult(task_id)
+    result = {
+        "task_id": task_id,
+        "task_status": task_result.status,
+        "task_result": task_result.result
+    }
+    return JsonResponse(result, status=200)
 
 def handle_file(f, uuid):
     if not os.path.exists(f'exam_questions/static/upload/{uuid}'):
