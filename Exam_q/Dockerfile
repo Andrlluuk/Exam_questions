@@ -14,6 +14,7 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN apk add zlib-dev jpeg-dev gcc musl-dev
 RUN pip install -r requirements.txt
 RUN apk add --no-cache texlive-full
+#RUN tlmgr update --self && tlmgr install sectsty lastpage helvetic
 RUN apk add --no-cache poppler-utils
 # copy entrypoint.sh
 COPY ./entrypoint.sh /usr/src/app/entrypoint.sh

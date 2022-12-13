@@ -1,16 +1,20 @@
+import math
 import os
 import random
-from pdf2image import convert_from_path
-from fpdf import FPDF
-from PIL import Image
+import shutil
 import subprocess
+
+from PIL import Image
 from docx import Document
-from timeit import default_timer as timer
+from fpdf import FPDF
+from pdf2image import convert_from_path
+
 from .parser import parse_tex, parse_docx, parse_txt
 from .statistics import collect_statistics
-import math
-import random
-import shutil
+
+from pylatex import Document
+from .models import File
+
 
 def get_minimal_number_of_questions(questions_pool, params, stats):
     number_of_questions = {}
@@ -51,6 +55,7 @@ def chunk(L, n=1, verbose=False):
             ranges = [(index[i], index[i + 1]) for i in range(len(index) - 1)]
         return [L[i:j] for i, j in ranges]
 
+
 def indexes_ok(indexes, params, info_tickets, mark):
     for idx in indexes:
         if (info_tickets[idx][mark] + 1 > params[mark]):
@@ -61,7 +66,7 @@ def indexes_ok(indexes, params, info_tickets, mark):
 
 def create_questions_tex(path, filename, params, questions_pool, tickets):
     """TODO: change"""
-    info_tickets = {i + 1: {'3':0, '4':0, '5':0, '6':0} for i in range(tickets)}
+    info_tickets = {i + 1: {'3': 0, '4': 0, '5': 0, '6': 0} for i in range(tickets)}
     dict_of_tickets = {i + 1: [] for i in range(tickets)}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
@@ -71,11 +76,14 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                 else:
                     for question in questions_pool[chapter][mark][necessarity]:
                         possible = set([i for i in range(tickets) if params[mark] - info_tickets[i + 1][mark] > 0])
-                        indexes = random.sample(possible, math.floor(tickets/int(necessarity)))
+                        indexes = random.sample(possible, math.floor(tickets / int(necessarity)))
                         for idx in indexes:
                             info_tickets[idx + 1][mark] += 1
-                            dict_of_tickets[idx + 1].append(question)
-    unnecessary_pool = {'3':[], '4':[], '5':[], '6':[]}
+                            if mark == '6':
+                                dict_of_tickets[idx + 1].append('Задача' + question)
+                            else:
+                                dict_of_tickets[idx + 1].append(str(mark) + question)
+    unnecessary_pool = {'3': [], '4': [], '5': [], '6': []}
     for chapter in questions_pool.keys():
         for mark in questions_pool[chapter].keys():
             if '0' in questions_pool[chapter][mark]:
@@ -91,11 +99,15 @@ def create_questions_tex(path, filename, params, questions_pool, tickets):
                 if info_tickets[curr][mark] < params[mark] and question not in dict_of_tickets[curr]:
                     full = False
                     info_tickets[curr][mark] += 1
-                    dict_of_tickets[curr].append(question)
+                    if mark == '6':
+                        dict_of_tickets[curr].append('Задача' + question)
+                    else:
+                        dict_of_tickets[curr].append(str(mark) + question)
                 curr = (curr) % tickets + 1
     return dict_of_tickets
 
-def get_statistics(current_file, additional_file = None):
+
+def get_statistics(current_file, additional_file=None):
     title = None
     if additional_file == None:
         _, file_extension = os.path.splitext(current_file)
@@ -132,10 +144,12 @@ def get_statistics(current_file, additional_file = None):
         stat = collect_statistics(pool)
         return stat, pool, title
 
+
 def remove_newline_signs(line):
     while (line.endswith('\n')) or (line.endswith('\\')) or (line.endswith('  ')):
         line = line[:-2]
     return line
+
 
 def parsess_doc(folder, name, params):
     dir_path = ""
@@ -201,6 +215,7 @@ def parsess_doc(folder, name, params):
 
     return questions_pool, dir_path
 
+
 def parsess_tex(folder, name, params):
     # os.chdir(folder)
     dir_path = os.path.dirname(folder)
@@ -242,7 +257,7 @@ def parsess_tex(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[part_number][3].append(line)
+            questions_pool[part_number][3].append('3' + line)
         elif line.startswith(params['label_4']):
             if not params['show']:
                 if ".png" in params['label_4'] or ".jpg" in params['label_4'] or ".jpeg" in params['label_4']:
@@ -257,7 +272,7 @@ def parsess_tex(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[part_number][4].append(line)
+            questions_pool[part_number][4].append('4' + line)
         elif line.startswith(params['label_5']):
             if not params['show']:
                 if ".png" in params['label_5'] or ".jpg" in params['label_5'] or ".jpeg" in params['label_5']:
@@ -272,14 +287,14 @@ def parsess_tex(folder, name, params):
                         break
 
                 line = line[po:]
-            questions_pool[part_number][5].append(line)
+            questions_pool[part_number][5].append('5' + line)
         elif line.startswith(params['label_problem']):
-            questions_pool[part_number][6].append(line)
+            questions_pool[part_number][6].append('Задача' + line)
 
     return questions_pool, title
 
 
-def create_texs(questions_pool, params, dir_path, title = []):
+def create_texs(questions_pool, params, dir_path, title=[]):
     for ticket in questions_pool.keys():
         questions = questions_pool[ticket]
         with open(os.path.join(dir_path, f"tickets{ticket}.tex"), 'w') as f:
@@ -296,6 +311,7 @@ def create_texs(questions_pool, params, dir_path, title = []):
             for i in range(len(questions)):
                 line = remove_newline_signs(questions[i])
                 if not params['show']:
+                    line = line.split(' ', 1)[1]
                     f.write('%s' % f'{i + 1}. ' + line)
                 else:
                     f.write('%s' % line)
@@ -303,11 +319,15 @@ def create_texs(questions_pool, params, dir_path, title = []):
                 f.write('\n')
             f.write('\\end{document}')
         os.chdir(dir_path)
-        # os.system(f"pdflatex tickets{ticket + 1}.tex")
-        subprocess.run(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket}.tex"])
+        #doc = Document(f"{dir_path}/tickets{ticket + 1}.tex")
+        #doc.generate_pdf(f"{dir_path}/tickets{ticket + 1}")
+        # os.system(f"sudo pdflatex tickets{ticket + 1}.tex")
+ 
+        subprocess.call(['pdflatex', '-interaction=nonstopmode', f"tickets{ticket}.tex"], stdout=subprocess.DEVNULL)
         os.chdir('../../../..')
 
-def create_pdf(tickets, dir_path, title = []):
+
+def create_pdf(tickets, dir_path, title=[]):
     for ticket in range(tickets):
         file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
         for fil in file:
@@ -337,6 +357,7 @@ def create_pdf(tickets, dir_path, title = []):
     pdf.output(os.path.join(dir_path, "tickets.pdf"), "F")
     # os.chdir('../../..')
 
+
 def build_questions_from_tex(folder, name, params):
     questions_pool, dir_path, title = parse_tex(folder, name, params)
     if (params['additional_file']):
@@ -351,6 +372,7 @@ def build_questions_from_tex(folder, name, params):
     if create_texs(questions_pool, params, dir_path, folder, title) == "Error":
         return "Error"
     create_pdf(questions_pool, params, dir_path, folder, title)
+
 
 def doc_parsing(folder, name, params):
     questions_pool, dir_path = parse_docx(folder, name, params)
@@ -368,7 +390,7 @@ def doc_parsing(folder, name, params):
     create_pdf(questions_pool, params, dir_path, folder)
 
 
-def create_folder(tickets, dir_path, title = []):
+def create_folder(tickets, dir_path, title=[]):
     os.mkdir(os.path.join(dir_path, "ticket_folder"))
     for ticket in range(tickets):
         file = convert_from_path(os.path.join(dir_path, f'tickets{ticket + 1}.pdf'), 500)
@@ -392,3 +414,4 @@ def create_folder(tickets, dir_path, title = []):
         pdf.line(0, y_current, 297, y_current)
         pdf.output(os.path.join(dir_path, f"ticket_folder/ticket_{ticket + 1}.pdf"), "F")
     shutil.make_archive(os.path.join(dir_path, f"ticket_folder"), 'zip', os.path.join(dir_path, f"ticket_folder"))
+

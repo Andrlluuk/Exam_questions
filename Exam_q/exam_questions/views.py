@@ -10,11 +10,12 @@ from .models import File
 from .algorithm import get_minimal_number_of_questions, create_questions_tex
 from celery.result import AsyncResult
 from django.views.decorators.csrf import csrf_exempt
+from threading import Lock
 
 import uuid
 
 import os
-from tasks.sample_task import create_task
+from exam_questions.tasks.sample_task import create_task
 
 
 def home(request):
@@ -74,21 +75,24 @@ def params_for_tickets(request, uuid, filename):
             obj = File.objects.filter(uuid=uuid)[0]
             filename = obj.filename
 
+            params = obj.params
+            questions_pool = obj.questions_pool
+            tickets = obj.tickets
             _, file_extension = os.path.splitext(filename)
             if (file_extension == '.docx'):
-                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, obj.params,
-                                                 obj.questions_pool, obj.tickets)
-                create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/")
-                create_pdf(obj.tickets, f"exam_questions/static/upload/{uuid}/")
-                if (obj.params['pdf_folder'] == True):
-                    create_folder(obj.tickets, f"exam_questions/static/upload/{uuid}/")
+                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, params,
+                                                 questions_pool, tickets)
+                create_texs(questions, params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(tickets, f"exam_questions/static/upload/{uuid}/")
+                if (params['pdf_folder'] == True):
+                    create_folder(tickets, f"exam_questions/static/upload/{uuid}/")
             else:
-                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, obj.params,
-                                                 obj.questions_pool, obj.tickets)
-                create_texs(questions, obj.params, f"exam_questions/static/upload/{uuid}/")
-                create_pdf(obj.tickets, f"exam_questions/static/upload/{uuid}/")
-                if (obj.params['pdf_folder'] == True):
-                    create_folder(obj.tickets, f"exam_questions/static/upload/{uuid}/")
+                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, params,
+                                                 questions_pool, tickets)
+                create_texs(questions, params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(tickets, f"exam_questions/static/upload/{uuid}/")
+                #if (params['pdf_folder'] == True):
+                  #  create_folder(tickets, f"exam_questions/static/upload/{uuid}/")
             if questions == "Error":
                 return HttpResponse("Error")
             if obj.output_format == 'PDF':
@@ -137,8 +141,8 @@ def params(request, uuid, filename):
                     '6': form.cleaned_data[
                         'num_problems_in_ticket'],
                     'show': form.cleaned_data['show'],
-                    'output_format': form.cleaned_data['output_format'],
-                    'pdf_folder': form.cleaned_data['pdf_folder']}
+                    'output_format': form.cleaned_data['output_format']}
+                    #,'pdf_folder': form.cleaned_data['pdf_folder']}
             num_of_tickets = get_minimal_number_of_questions(questions_pool, info,
                                                              File.objects.filter(uuid=uuid)[0].stats)
             obj = File.objects.filter(uuid=uuid)[0]
@@ -146,9 +150,10 @@ def params(request, uuid, filename):
             obj.params = info
             obj.save()
             return HttpResponseRedirect(f"/exam_questions/{uuid}/num_of_tickets/{filename}")
-
     else:
+        stats = File.objects.filter(uuid=uuid)[0].stats
         form = UploadParamsForm()
+        form.stats = stats
     return render(request, 'params.html', {'form': form})
 
 
