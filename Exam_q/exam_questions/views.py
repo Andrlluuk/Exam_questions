@@ -1,91 +1,178 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.http.response import HttpResponse
 from django.shortcuts import render
-from .forms import UploadFileForm, UploadParamsForm
+from .forms import UploadFileForm, UploadParamsForm, UploadTicketForm
 import mimetypes
-from .algorithm import create_pages
-from .algorithm import doc_parsing
-import os
+from .algorithm import build_questions_from_tex
+from .algorithm import doc_parsing, create_pdf, create_texs, create_folder
+from .algorithm import get_statistics
+from .models import File
+from .algorithm import get_minimal_number_of_questions, create_questions_tex
+from celery.result import AsyncResult
+from django.views.decorators.csrf import csrf_exempt
+from threading import Lock
 
-def handle_image(f):
-    with open('exam_questions/static/upload/'+f.name, 'wb+') as destination:
+import uuid
+
+import os
+from exam_questions.tasks.sample_task import create_task
+
+
+def home(request):
+    return render(request, "home.html")
+
+@csrf_exempt
+def run_task(request):
+    if request.POST:
+        task_type = request.POST.get("type")
+        print("aaaaaaaaaaaaaa")
+        print(task_type)
+        task = create_task.delay(int(task_type))
+        return JsonResponse({"task_id": task.id}, status=202)
+
+@csrf_exempt
+def get_status(request, task_id):
+    task_result = AsyncResult(task_id)
+    result = {
+        "task_id": task_id,
+        "task_status": task_result.status,
+        "task_result": task_result.result
+    }
+    return JsonResponse(result, status=200)
+
+def handle_file(f, uuid):
+    if not os.path.exists(f'exam_questions/static/upload/{uuid}'):
+        os.mkdir(f'exam_questions/static/upload/{uuid}')
+    with open(f'exam_questions/static/upload/{uuid}/' + f.name, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
 
 def index(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        return HttpResponseRedirect(f"{uuid.uuid1()}/load")
+    else:
+        return render(request, 'index.html')
 
-def load(request):
+
+def statistics(request, uuid, filename):
+    if request.method == 'POST':
+        return HttpResponseRedirect(f"/exam_questions/{uuid}/params/{filename}")
+    else:
+        stats = File.objects.filter(uuid=uuid)[0].stats
+        stats['num_of_q']['Задача'] = stats['num_of_q'].pop('6')
+    return render(request, 'statistics.html',
+                  {'stats': stats['table'], 'density': stats['density'], 'questions': stats['num_of_q']})
+
+
+def params_for_tickets(request, uuid, filename):
+    if request.method == 'POST':
+        form = UploadTicketForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = File.objects.filter(uuid=uuid)[0]
+            obj.tickets = form.cleaned_data['num_problems_in_ticket']
+            obj.save()
+            obj = File.objects.filter(uuid=uuid)[0]
+            filename = obj.filename
+
+            params = obj.params
+            questions_pool = obj.questions_pool
+            tickets = obj.tickets
+            _, file_extension = os.path.splitext(filename)
+            if (file_extension == '.docx'):
+                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, params,
+                                                 questions_pool, tickets)
+                create_texs(questions, params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(tickets, f"exam_questions/static/upload/{uuid}/")
+                if (params['pdf_folder'] == True):
+                    create_folder(tickets, f"exam_questions/static/upload/{uuid}/")
+            else:
+                questions = create_questions_tex(f"exam_questions/static/upload/{uuid}/", filename, params,
+                                                 questions_pool, tickets)
+                create_texs(questions, params, f"exam_questions/static/upload/{uuid}/")
+                create_pdf(tickets, f"exam_questions/static/upload/{uuid}/")
+                #if (params['pdf_folder'] == True):
+                  #  create_folder(tickets, f"exam_questions/static/upload/{uuid}/")
+            if questions == "Error":
+                return HttpResponse("Error")
+            if obj.output_format == 'PDF':
+                return HttpResponseRedirect(f"/exam_questions/{uuid}/preview/tickets.pdf")
+            elif obj.output_format == 'TEX':
+                return HttpResponseRedirect(f"/exam_questions/{uuid}/preview/tickets.tex")
+    else:
+        form = UploadTicketForm()
+        num = File.objects.filter(uuid=uuid)[0].tickets
+        return render(request, 'ticket_suggestion.html', {'form': form, 'num_of_tickets': num})
+
+
+def load(request, uuid):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_image(request.FILES['file'])
-            return HttpResponseRedirect(f"/exam_questions/{request.FILES['file'].name}")
+            handle_file(request.FILES['file'], uuid)
+            filename = request.FILES['file']
+            if (form.cleaned_data['additional_file']):
+                stats, questions_pool, title = get_statistics(
+                    f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name,
+                    "exam_questions/static/upload/" + request.FILES['additional_file'].name)
+                handle_file(request.FILES['additional_file'], uuid)
+                File(filename=filename, questions_pool=questions_pool, stats=stats, title=title, uuid=uuid).save()
+                return HttpResponseRedirect(f"/exam_questions/{uuid}/statistics/{filename}")
+            else:
+                stats, questions_pool, title = get_statistics(
+                    f"exam_questions/static/upload/{uuid}/" + request.FILES['file'].name)
+                File(filename=filename, questions_pool=questions_pool, stats=stats, title=title, uuid=uuid).save()
+                return HttpResponseRedirect(f"/exam_questions/{uuid}/statistics/{filename}")
     else:
         form = UploadFileForm()
     return render(request, 'load.html', {'form': form})
 
-def params(request, filename):
+
+def params(request, uuid, filename):
     if request.method == 'POST':
         form = UploadParamsForm(request.POST, request.FILES)
         if form.is_valid():
-            if(form.cleaned_data['label_3']):
-                handle_image(request.FILES['label_3'])
-            if (form.cleaned_data['label_4']):
-                handle_image(request.FILES['label_4'])
-            if (form.cleaned_data['label_5']):
-                handle_image(request.FILES['label_5'])
-            if (form.cleaned_data['label_problem']):
-                handle_image(request.FILES['label_problem'])
-
-            _, file_extension = os.path.splitext(filename)
-            if (file_extension == '.docx'):
-                tx = doc_parsing("exam_questions/static/upload/", filename, {'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
-                                                                     'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
-                                                                     'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
-                                                                     'label_problem': str(request.FILES['label_problem']) if form.cleaned_data['label_problem'] else 'Задача',
-                                                                   'number_of_tickets': form.cleaned_data['num_tickets'],
-                                                                    3: form.cleaned_data['num_questions_3_in_ticket'],
-                                                                    4: form.cleaned_data['num_questions_4_in_ticket'],
-                                                                    5: form.cleaned_data['num_questions_5_in_ticket'],
-                                                                    6: form.cleaned_data['num_problems_in_ticket'],
-                                                                    'show': form.cleaned_data['show']})
-            else:
-                tx = create_pages("exam_questions/static/upload/", filename, {
-                    'label_3': str(request.FILES['label_3']) if form.cleaned_data['label_3'] else 'Вопрос на 3',
-                    'label_4': str(request.FILES['label_4']) if form.cleaned_data['label_4'] else 'Вопрос на 4',
-                    'label_5': str(request.FILES['label_5']) if form.cleaned_data['label_5'] else 'Вопрос на 5',
-                    'label_problem': str(request.FILES['label_problem']) if form.cleaned_data[
-                        'label_problem'] else 'Задача',
-                    'number_of_tickets': form.cleaned_data['num_tickets'],
-                    3: form.cleaned_data['num_questions_3_in_ticket'],
-                    4: form.cleaned_data['num_questions_4_in_ticket'],
-                    5: form.cleaned_data['num_questions_5_in_ticket'],
-                    6: form.cleaned_data['num_problems_in_ticket'],
-                    'show': form.cleaned_data['show']})
-            if tx == "Error":
-                return HttpResponse("Error")
-            if form.cleaned_data['output_format'] == 'PDF':
-                return HttpResponseRedirect(f"/exam_questions/preview/tickets.pdf")
-            elif form.cleaned_data['output_format'] == 'TEX':
-                return HttpResponseRedirect(f"/exam_questions/preview/tickets.tex")
+            questions_pool = File.objects.filter(uuid=uuid)[0].questions_pool
+            info = {'3': form.cleaned_data['num_questions_3_in_ticket'],
+                    '4': form.cleaned_data[
+                        'num_questions_4_in_ticket'],
+                    '5': form.cleaned_data[
+                        'num_questions_5_in_ticket'],
+                    '6': form.cleaned_data[
+                        'num_problems_in_ticket'],
+                    'show': form.cleaned_data['show'],
+                    'output_format': form.cleaned_data['output_format']}
+                    #,'pdf_folder': form.cleaned_data['pdf_folder']}
+            num_of_tickets = get_minimal_number_of_questions(questions_pool, info,
+                                                             File.objects.filter(uuid=uuid)[0].stats)
+            obj = File.objects.filter(uuid=uuid)[0]
+            obj.tickets = num_of_tickets
+            obj.params = info
+            obj.save()
+            return HttpResponseRedirect(f"/exam_questions/{uuid}/num_of_tickets/{filename}")
     else:
+        stats = File.objects.filter(uuid=uuid)[0].stats
         form = UploadParamsForm()
+        form.stats = stats
     return render(request, 'params.html', {'form': form})
 
-def downloadfile(request, filename):
+
+def downloadfile(request, uuid, filename):
     if filename != '':
-        path = open(f'exam_questions/static/upload/{filename}', 'rb')
-        mime_type, _ = mimetypes.guess_type(f'/exam_questions/static/upload/{filename}')
-        response = HttpResponse(path, content_type='pdf')
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
-        return response
+        if (File.objects.filter(uuid=uuid)[0].params['pdf_folder'] == False):
+            path = open(f'exam_questions/static/upload/{uuid}/{filename}', 'rb')
+            response = HttpResponse(path, content_type='pdf')
+            response['Content-Disposition'] = "attachment; filename=%s" % filename
+            return response
+        else:
+            path = open(f'exam_questions/static/upload/{uuid}/ticket_folder.zip', 'rb')
+            response = HttpResponse(path, content_type="application/x-zip-compressed")
+            response['Content-Disposition'] = "attachment; filename=ticket-folder"
+            return response
     else:
         return HttpResponse("No such file")
 
-def preview(request, filename):
+
+def preview(request, uuid, filename):
     # if request.method == 'POST':
-    return render(request, 'preview.html', {'filename': filename})
-
-
+    return render(request, 'preview.html', {'filename': filename, 'uuid': f"upload/{uuid}/tickets.pdf"})

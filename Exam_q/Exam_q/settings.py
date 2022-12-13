@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'exam_questions.apps.ExamQuestionsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,11 +117,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
+#
+# STATICFILES_DIRS = [BASE_DIR / "exam_questions/static", ]
 
-STATICFILES_DIRS = [BASE_DIR / "exam_questions/static", ]
+STATIC_URL = "/staticfiles/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://127.0.0.1:6379/0")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BROKER", "redis://127.0.0.1:6379/0")
+C_FORCE_ROOT = 'true'
+
+CELERY_TASK_ROUTES = {
+    'exam_questions.views.downloadfile': {'queue': 'tasks_queue', },
+    'exam_questions.views.handle_file': {'queue': 'tasks_queue', },
+    'exam_questions.views.index': {'queue': 'tasks_queue', },
+    'exam_questions.views.load': {'queue': 'tasks_queue', },
+    'exam_questions.views.params': {'queue': 'tasks_queue', },
+    'exam_questions.views.params_for_tickets': {'queue': 'tasks_queue', },
+    'exam_questions.views.preview': {'queue': 'tasks_queue', },
+    'exam_questions.views.statistics': {'queue': 'tasks_queue', },
+}

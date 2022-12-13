@@ -15,11 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+import redis
 
 from django.conf import settings
 from django.conf.urls.static import static
 
+from exam_questions.views import get_status, run_task, home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('exam_questions/', include('exam_questions.urls')),
+    path("tasks/", run_task, name="run_task"),
+    path("tasks/<task_id>/", get_status, name="get_status"),
+    path("", home, name="home"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
